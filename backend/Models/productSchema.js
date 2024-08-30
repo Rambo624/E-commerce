@@ -3,27 +3,24 @@ const mongoose=require("mongoose")
 
 const productSchema= new mongoose.Schema({
 
-name:{
+title:{
     type:String,
     required:true
 },
-email:{
+desc:{
     type:String,
     required:true
 },
-password:{
-    type:String,
+price:{
+    type:Number,
     required:true,
-    minLength:8
+    min: [1, 'The number must be positive'], // Set minimum value to 1
 },
-profilepic:{
+thumbnail:{
     type:String,
-    default:"https://th.bing.com/th/id/OIP.w-L3HP_7QYalYXw7apT2tAHaHx?rs=1&pid=ImgDetMain"
+    default:"https://static.vecteezy.com/system/resources/previews/016/916/479/original/placeholder-icon-design-free-vector.jpg"
 },
-role:{
-    type:String,
-    required:true
-}
+
 
 })
 

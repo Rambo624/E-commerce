@@ -8,8 +8,8 @@ const cors=require("cors")
 var app=express()
 const userRoute= require("./Routes/userRoute")
 const adminRoute=require("./Routes/adminRoute")
+const productRoute=require("./Routes/productRouter")
 const sellerRoute=require("./Routes/sellerRoute")
-
 app.use(cors({
   credentials:true
 }))
@@ -19,6 +19,7 @@ app.use(express.json())
 app.use("/",userRoute)
 app.use("/admin",adminRoute)
 app.use("/seller",sellerRoute)
+app.use("/product",productRoute)
 
 
 mongoose.connect(process.env.MONGO_URI, {
