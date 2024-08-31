@@ -58,7 +58,7 @@ if(!userauth){
     return res.status(403).json("Invalid credentials")
 }
 
-const token = generateToken(user._id)
+const token = generateToken(user._id,user.role)
 
 res.cookie("token",token)
 
@@ -73,8 +73,8 @@ res.status(200).json("logged in successfully")
 const sellerProfile= async(req,res)=>{
 
 
-    const user=req.user
-    console.log(user)
+    const seller=req.seller
+    console.log(seller,"req.seller in sellerProfile")
 const {id}=req.params
 const userData= await User.findOne({_id:id})
 

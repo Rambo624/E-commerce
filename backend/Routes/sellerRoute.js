@@ -1,7 +1,7 @@
 const express=require("express")
 const router=express.Router()
 const sellerController= require("../Controllers/sellerController")
-const {userAuth}= require("../Middlewares/userauth")
+const {sellerAuth}= require("../Middlewares/sellerAuth")
 
 router.get("/",(req,res)=>{
     res.send("Hello user")
@@ -10,10 +10,10 @@ router.get("/",(req,res)=>{
 router.post("/signup", sellerController.sellerSignup)
 router.post("/login",sellerController.sellerLogin)
 router.post("/logout", sellerController.sellerLogout)
-router.get("/profile/:id",userAuth,sellerController.sellerProfile)
-router.put("/edit/:id",userAuth,sellerController.sellerEdit)
-router.get("/check-user", userAuth, sellerController.checkUser);
-router.delete("/:id",userAuth,sellerController.sellerDelete)
+router.get("/profile/:id",sellerAuth,sellerController.sellerProfile)
+router.put("/edit/:id",sellerAuth,sellerController.sellerEdit)
+router.get("/check-user", sellerAuth, sellerController.checkUser);
+router.delete("/:id",sellerAuth,sellerController.sellerDelete)
 
 
 module.exports=router

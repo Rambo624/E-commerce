@@ -19,6 +19,10 @@ password:{
 profilepic:{
     type:String,
     default:"https://th.bing.com/th/id/OIP.w-L3HP_7QYalYXw7apT2tAHaHx?rs=1&pid=ImgDetMain"
+},
+role:{
+    type:String,
+    default:"user"
 }
 
 })

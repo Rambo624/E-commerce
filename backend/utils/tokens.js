@@ -5,7 +5,7 @@ dotenv.config()
 const generateToken=(id,role)=>{
 
     try {
-        var token = jwt.sign({ id:id }, process.env.JWT_KEY);
+        var token = jwt.sign({ id:id ,role:role ||"user"}, process.env.JWT_KEY);
 
         return token 
         

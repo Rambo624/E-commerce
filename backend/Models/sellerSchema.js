@@ -22,7 +22,7 @@ profilepic:{
 },
 role:{
     type:String,
-    required:true
+    default:"seller"
 }
 
 })
