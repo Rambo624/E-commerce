@@ -11,9 +11,14 @@ const adminRoute=require("./Routes/adminRoute")
 const productRoute=require("./Routes/productRouter")
 const sellerRoute=require("./Routes/sellerRoute")
 const cartRoute=require("./Routes/cartRoute")
-app.use(cors({
-  credentials:true
-}))
+const corsOptions = {
+  origin: 'http://localhost:5173', // Replace with your frontend's URL
+  credentials: true,               // Allow credentials (cookies, etc.)
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+};
+
+app.use("*",cors(corsOptions))
 
 app.use(cookieParser())
 app.use(express.json())

@@ -1,28 +1,21 @@
 import React from 'react'
 import Login from "./Pages/Login"
-import {BrowserRouter, Routes,Route} from "react-router-dom"
+import { RouterProvider} from "react-router-dom"
 import Home from './Pages/Home'
 import Signup from './Pages/Signup'
 import Profile from './Pages/Profile'
+import Edituser from './Pages/Edituser'
+import { router } from './Routes/Routes'
+import {Provider} from "react-redux"
+import appstore from './utils/appstore.js'
 
 
 function App() {
   return (
     <div>
-      <BrowserRouter>
-      <Routes>
-
-<Route path='/' element={<Login/>}></Route>
-<Route path='/signup' element={<Signup/>}></Route>
-<Route path='/home' element={<Home/>}></Route>
-<Route path='/profile' element={<Profile/>}></Route>
-
-
-      </Routes>
-      
-      
-      </BrowserRouter>
-    
+      <Provider store={appstore}>
+<RouterProvider router={router}></RouterProvider>
+</Provider>
     </div>
   )
 }

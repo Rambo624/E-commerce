@@ -2,7 +2,7 @@
 const User=require("../Models/userSchema")
 const bcrypt=require("bcrypt")
 const generateToken=require("../utils/tokens")
-
+const { Cloudinary } = require("../utils/cloudinary-config")
 
 const userSignup= async(req,res)=>{
 
@@ -61,7 +61,7 @@ const token = generateToken(user._id)
 
 res.cookie("token",token)
 
-res.status(200).json("logged in successfully")
+res.status(200).send(user)
 
     } catch (error) {
         console.log(error)
@@ -69,7 +69,21 @@ res.status(200).json("logged in successfully")
 
 }
 
-const userProfile= async(req,res)=>{
+const userProfile=async(req,res)=>{
+    const user=req.user
+    console.log(user)
+
+    const userData= await User.findOne({_id:user.id})
+    if(!userData){
+        return res.status(400).json("user not found")
+}
+
+res.send(userData)
+
+}
+
+
+/*const userProfile= async(req,res)=>{
 
 
     const user=req.user
@@ -85,12 +99,23 @@ res.send(userData)
 
 
 }
-
+*/
 
 const userEdit=async(req,res)=>{
-    const {id}=req.params
-const {email,username,profilepic}=req.body
-    const userData=await User.updateOne({_id:id},{$set:{email,username,profilepic}},{new:true})
+    let uploadUrl;
+    const user=req.user
+    if (req.file) {
+        const uploadResult = await Cloudinary.uploader.upload(req.file.path)
+            .catch((error) => {
+                console.log(error,"===============");
+            });
+
+
+        console.log(uploadResult);
+        uploadUrl = uploadResult.url
+    }
+const {email,username}=req.body
+    const userData=await User.updateOne({_id:user.id},{$set:{email,username, profilepic:uploadUrl}},{new:true})
     if(!userData){
         return res.json("user not found")
     }
@@ -101,9 +126,9 @@ const {email,username,profilepic}=req.body
 
 
 const userDelete=async(req,res)=>{
-    const {id}=req.params
+    const user=req.user
 
-    const removeUser= await User.deleteOne({_id:id})
+    const removeUser= await User.deleteOne({_id:user.id})
 if(!removeUser){
     return res.json("user not found")
 }

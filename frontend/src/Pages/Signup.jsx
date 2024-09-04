@@ -31,19 +31,28 @@ try {
 
 
   return (
-    <div className='m-5'>
+    <div className='bg-cover h-screen w-screen bg-[url(https://th.bing.com/th/id/R.ab58913984a664a8032490d026113b31?rik=pO30G9NVzF1h3Q&riu=http%3a%2f%2fwallpapercave.com%2fwp%2fJYf8BYc.jpg&ehk=wH%2fvY9tL%2fM9S4LNHZAy%2fVMFJrCCaiCaXydP3R0BJI70%3d&risl=&pid=ImgRaw&r=0)]'>
+        <div className='m-[10%] ml-[40%] bg-white  border border-black inline-block rounded-xl '>
         <form onSubmit={handleSignup}>
-            <label htmlFor="">Username</label><br />
-            <input ref={name} className='border border-black' type="text" /><br />
+        <div className='bg-blue-600  rounded-t-xl p-2'>
+       <h1 className='ml-[30%] font-semibold text-white'>User Signup</h1>
+          </div >
+          <div className='p-4'>
+          <label htmlFor="">Username</label><br />
+            <input ref={name} className='border w-80 rounded-lg border-black mb-3 py-1' type="text" /><br />
             <label htmlFor="">Email</label><br />
-            <input ref={email} className='border border-black' type="text" /><br />
+            <input ref={email} className='border w-80 rounded-lg  border-black mb-3 py-1' type="text" /><br />
             <label htmlFor="">Password</label><br />
-            <input ref={password} className='border border-black' type="text" /><br />
+            <input ref={password} className='border w-80 rounded-lg  border-black mb-3 py-1' type="text" /><br />
 
-            <button className='border border-black' >Submit</button>
-            <p>Already a User?<Link to={"/"}>Login</Link></p>
+            <button className='border border-black mt-4 w-80 p-1 rounded-lg bg-blue-500 text-white' >Submit</button>
+            <p>Already a User?<Link className='text-blue-500' to={"/login"}>Login</Link></p>
+          </div>
+          
         </form>
     </div>
+    </div>
+    
   )
 }
 
