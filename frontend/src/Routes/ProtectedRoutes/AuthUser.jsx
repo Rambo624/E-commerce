@@ -3,7 +3,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 
 export const AuthUser = ({ children }) => {
-    const [isUser, setIstUser] = useState(false);
+    const [isUser, setIsUser] = useState(false);
 
     const navigate = useNavigate()
 
@@ -13,10 +13,10 @@ export const AuthUser = ({ children }) => {
                 method: "GET",
                 url: "/check-user",
             });
-            setIstUser(true);
+            setIsUser(true);
             console.log(response);
         } catch (error) {
-            setIstUser(false);
+            setIsUser(false);
             console.log(error);
             navigate('/login')
         }
