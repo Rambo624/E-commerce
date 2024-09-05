@@ -1,10 +1,10 @@
 import React from 'react'
 import { useRef } from 'react'
-import axios from "axios"
+import axiosInstance from '../utils/axiosInstance'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
-import { login,logout } from '../utils/userSlice'
+import { login } from '../utils/userSlice'
 
 
 
@@ -25,7 +25,7 @@ const userData={
 
 try {
 
-  const response= await  axios.post("http://localhost:3000/login",userData,{ withCredentials: true })
+  const response= await  axiosInstance({method:"POST", url:`/login`,data:userData})
   
    if(response.status===200){
       dispatch(login(response.data))
@@ -45,9 +45,9 @@ navigate("/profile")
 
   return (
   
-    <div className='bg-cover h-screen w-screen bg-[url(https://th.bing.com/th/id/R.ab58913984a664a8032490d026113b31?rik=pO30G9NVzF1h3Q&riu=http%3a%2f%2fwallpapercave.com%2fwp%2fJYf8BYc.jpg&ehk=wH%2fvY9tL%2fM9S4LNHZAy%2fVMFJrCCaiCaXydP3R0BJI70%3d&risl=&pid=ImgRaw&r=0)]'>
+    <div className={`bg-cover h-screen w-screen bg-[url(${import.meta.env.VITE_BG_IMG})]`}>
    
-       <div className='m-[10%] ml-[40%] bg-white  border border-black inline-block rounded-xl'>
+       <div className='m-[10%] ml-[40%] bg-white border border-black inline-block rounded-xl'>
      
         <form  onSubmit={handleLogin}>
           <div className='bg-blue-600  rounded-t-xl p-2'>

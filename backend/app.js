@@ -11,6 +11,7 @@ const adminRoute=require("./Routes/adminRoute")
 const productRoute=require("./Routes/productRouter")
 const sellerRoute=require("./Routes/sellerRoute")
 const cartRoute=require("./Routes/cartRoute")
+const categoryRoute=require("./Routes/categoryRoute")
 const corsOptions = {
   origin: 'http://localhost:5173', // Replace with your frontend's URL
   credentials: true,               // Allow credentials (cookies, etc.)
@@ -27,7 +28,7 @@ app.use("/admin",adminRoute)
 app.use("/seller",sellerRoute)
 app.use("/product",productRoute)
 app.use("/cart",cartRoute)
-
+//app-use("/category",categoryRoute)
 mongoose.connect(process.env.MONGO_URI, {
   
   })

@@ -6,6 +6,9 @@ import Login from "../Pages/Login";
 import Signup from "../Pages/Signup";
 import Profile from "../Pages/Profile";
 import Edituser from "../Pages/Edituser";
+import SellerSignup from "../Pages/SellerSignup";
+import SellerLogin from "../Pages/SellerLogin";
+import { AuthUser } from "./ProtectedRoutes/AuthUser";
 
 
 export const router = createBrowserRouter([
@@ -22,14 +25,27 @@ export const router = createBrowserRouter([
     element:<Signup/>
 },
 {
-    path:"profile",
-    element:<Profile/>
+    path:"",
+    element:<Home/>
 },
-{
-    path:"edit",
-    element:<Edituser/>
-}
+
+
+
     ]
     
   },
+{
+    path:"/",
+    element:(<AuthUser><RootLayout/></AuthUser>),
+    children:[
+        {
+            path:"profile",
+            element:<Profile/>
+        },
+        {
+            path:"edit",
+            element:<Edituser/>
+        },
+    ]
+}
 ]);

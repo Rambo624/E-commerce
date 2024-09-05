@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import { useNavigate } from 'react-router-dom'
+import axiosInstance from '../utils/axiosInstance'
 
 
 
@@ -10,7 +11,8 @@ const navigate=useNavigate()
 useEffect(()=>{
 
 async function editUserDetails(){
-    const response= await axios.get("http://localhost:3000/profile",{ withCredentials: true })
+
+    const response= await axiosInstance({method:"GET",url:"/profile"})
     console.log(response.data)
 setuser(response.data)
 
@@ -33,8 +35,8 @@ async function handleEdit(){
       formData.append('profilepic', profilepic);
     }
 
-
-    await axios.put("http://localhost:3000/edit",formData,{withCredentials:true})
+   
+    await axiosInstance({method:"PUT",url:"/edit",data:formData})
     navigate("/profile")
 }
 

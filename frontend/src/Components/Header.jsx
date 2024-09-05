@@ -16,8 +16,10 @@ function Header() {
 const [dropdown, setdropdown]=useState(false)
   let userLogin = user.isUserLogged
   let username = null
+  let profilepic
   if (user.user) {
     username = user.user.username
+    profilepic=user.user.profilepic
   }
 
   const [ishover, setIsHover] = useState(false)
@@ -39,7 +41,7 @@ dispatch(logout())
 
 
   return (
-    <div className=' py-4 flex justify-between bg-white sticky top-0 z-50'>
+    <div className=' py-4 flex justify-between bg-white sticky top-0 z-50 shadow-xl'>
       <div className='w-3/12'>
         <Link to={"/"}><img src={import.meta.env.VITE_LOGO} alt="" /></Link>
       </div>
@@ -54,13 +56,21 @@ dispatch(logout())
             <button onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} className=' relative hover:bg-blue-500 hover:text-white rounded-lg p-3 flex items-center bg-gray-100'><FaRegUser className='mr-2' /> {username}{ishover ? <FaChevronDown className='ml-2' /> : <FaChevronUp className='ml-2' />} </button>
             : <Link to={"/login"}><button onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} className=' hover:bg-blue-500 hover:text-white rounded-lg p-3 flex items-center bg-gray-100'><FaRegUser className='mr-2' /> Login{ishover ? <FaChevronDown className='ml-2' /> : <FaChevronUp className='ml-2' />} </button></Link>}
         
-        {userLogin && dropdown && <div onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} className=' hover:bg-gray-200 absolute p-3 px-14 rounded-lg bg-white '>
-           <button className='' onClick={handleLogout}>Log Out</button> 
+        {userLogin && dropdown && <div onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} className=' absolute shadow-xl rounded-lg bg-white '>
+         
+           <ul className=' '>
+            <li className=' hover:bg-gray-200 p-3 px-14 ' onClick={handleLogout} >Log Out</li>
+            <li className=' hover:bg-gray-200 p-3 px-14 '>Log Out</li>
+            <li className=' hover:bg-gray-200 p-3 px-14 '>Log Out</li>
+            <li className=' hover:bg-gray-200 p-3 px-14 '>Log Out</li>
+
+           </ul>
           </div>}  
 
         </div>
 
-        <Link>{userLogin ? <button className='flex items-center gap-3 mt-3'><FaShoppingCart />Cart</button> : <button className='flex items-center gap-3 mt-3'><FaShop />Become a Seller</button>}</Link>
+        {userLogin ? <button className='flex items-center gap-3 mt-3'><FaShoppingCart />Cart</button> :<Link to={"/sellersignup"}><button className='flex items-center gap-3 mt-3'><FaShop />Become a Seller</button></Link> }
+  <Link to={"/profile"}>{userLogin && <img className='w-8 h-7 mt-3' src={profilepic} alt="" />}</Link>
       </div>
     </div>
   )
