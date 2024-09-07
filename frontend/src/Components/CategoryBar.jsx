@@ -1,43 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axiosInstance from "../utils/axiosInstance"
+import CategoryCard from './CategoryCard'
+
+
+
 
 function CategoryBar() {
-  return (
-    <div className=''>
-        <div className='bg-white shadow-lg shadow-blue-400  m-3 '>
-            <div className='flex justify-around items-baseline'>
-            <div>
-            <img className='w-14' src="https://th.bing.com/th/id/OIP.cdYoDVebNgY7gexByc4wRgAAAA?rs=1&pid=ImgDetMain" alt="" />
-            <p className=' '>Mobiles</p>
-            </div>
-            <div>
-            <img className='w-16 h-20' src="https://th.bing.com/th/id/OIP.t-LRwjiEuW_fKDrc5fXgsgHaF9?rs=1&pid=ImgDetMain" alt="" />
-            <p>Electronics</p>
-            </div>
-            <div>
-            <img className='w-14' src="https://th.bing.com/th/id/OIP.cdYoDVebNgY7gexByc4wRgAAAA?rs=1&pid=ImgDetMain" alt="" />
-            <p>Mobiles</p>
-            </div>
-            <div>
-            <img className='w-14' src="https://th.bing.com/th/id/OIP.cdYoDVebNgY7gexByc4wRgAAAA?rs=1&pid=ImgDetMain" alt="" />
-            <p>Mobiles</p>
-            </div>
-            <div>
-            <img className='w-14' src="https://th.bing.com/th/id/OIP.cdYoDVebNgY7gexByc4wRgAAAA?rs=1&pid=ImgDetMain" alt="" />
-            <p>Mobiles</p>
-            </div>
-            <div>
-            <img className='w-14' src="https://th.bing.com/th/id/OIP.cdYoDVebNgY7gexByc4wRgAAAA?rs=1&pid=ImgDetMain" alt="" />
-            <p>Mobiles</p>
-            </div>
-            <div>
-            <img className='w-14' src="https://th.bing.com/th/id/OIP.cdYoDVebNgY7gexByc4wRgAAAA?rs=1&pid=ImgDetMain" alt="" />
-            <p>Mobiles</p>
-            </div>
-           
-            </div>
+const [category,setcategory]=useState(null)
 
-        </div>
-    </div>
+  async function getcategory(){
+    const response= await axiosInstance({method:"GET",url:"/category/categories"})
+ 
+  
+    setcategory( response.data.data)
+    
+    }
+
+useEffect(()=>{
+getcategory()
+},[])
+if(!category) return <h1>Loading...</h1>
+
+  return (
+ <div className='shadow-xl m-4 flex justify-around'>
+{category.map((cat)=>( <CategoryCard key={cat.name} image={cat.image} name={cat.name} />))}
+ 
+ </div>
   )
 }
 

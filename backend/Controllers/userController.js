@@ -113,7 +113,7 @@ const userEdit=async(req,res)=>{
             });
 
 
-        console.log(uploadResult);
+    
         uploadUrl = uploadResult.url
     }
 const {email,username}=req.body
