@@ -14,6 +14,6 @@ router.get("/profile/:id",sellerAuth,sellerController.sellerProfile)
 router.put("/edit/:id",sellerAuth,sellerController.sellerEdit)
 router.get("/check-user", sellerAuth, sellerController.checkUser);
 router.delete("/:id",sellerAuth,sellerController.sellerDelete)
-
+router.get("/check-user", sellerAuth, sellerController.checkUser);
 
 module.exports=router

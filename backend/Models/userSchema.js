@@ -28,6 +28,13 @@ cart:{
     type:mongoose.Schema.Types.ObjectId,
     ref:"cart"
 },
+address: [{
+    House: { type: String, trim: true },
+    city: { type: String, trim: true },
+    state: { type: String, trim: true },
+    country: { type: String, trim: true },
+    postalCode: { type: String, trim: true },
+  }],
 orders:[{
     type:mongoose.Schema.Types.ObjectId,
 ref:"order"

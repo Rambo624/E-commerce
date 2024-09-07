@@ -14,9 +14,13 @@ if(!token){
 
 var tokenVerified = jwt.verify(token, process.env.JWT_KEY);
 if(!tokenVerified){
-    return  res.status(401).json("unauthorized access")
+    return  res.status(403).json("unauthorized access")
 }
 
+console.log(tokenVerified.role,"haai")
+if(tokenVerified.role!= "seller"){
+    return res.status(403).json({success:false, message:"only sellers are authorised to access"})
+}
 req.seller=tokenVerified
 
 next()

@@ -1,12 +1,37 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useRef } from 'react'
+import axiosInstance from '../utils/axiosInstance'
+import { useNavigate } from 'react-router-dom'
 function SellerLogin() {
 const email=useRef()
 const password=useRef()
+const navigate=useNavigate()
+async function handleLogin(e){
+   e.preventDefault()
 
-async function handleLogin(){
+   const sellerData={
     
+       email:email.current.value,
+       password:password.current.value
+   }
+   
+   try {
+   
+     const response= await  axiosInstance({method:"POST", url:`/seller/login`,data:sellerData})
+     
+      if(response.status===200){
+       
+   navigate("/seller/home")
+      }
+   
+     
+   
+   } catch (error) {
+       console.log(error)
+   }finally{
+    
+   }
 }
 
     return (

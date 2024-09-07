@@ -9,6 +9,8 @@ import Edituser from "../Pages/Edituser";
 import SellerSignup from "../Pages/SellerSignup";
 import SellerLogin from "../Pages/SellerLogin";
 import { AuthUser } from "./ProtectedRoutes/AuthUser";
+import { Authseller } from "./ProtectedRoutes/Authseller";
+import SellerHome from "../Pages/seller/SellerHome";
 
 
 export const router = createBrowserRouter([
@@ -25,10 +27,17 @@ export const router = createBrowserRouter([
     element:<Signup/>
 },
 {
+    path:"sellersignup",
+    element:<SellerSignup/>
+},
+{
+    path:"sellerlogin",
+    element:<SellerLogin/>
+},
+{
     path:"",
     element:<Home/>
 },
-
 
 
     ]
@@ -46,6 +55,17 @@ export const router = createBrowserRouter([
             path:"edit",
             element:<Edituser/>
         },
+    ]
+},
+{
+    path:"/seller",
+    element:(<Authseller><RootLayout/></Authseller>),
+    children:[
+        {
+          path:"home",
+          element:<SellerHome/>  
+        },
+      
     ]
 }
 ]);

@@ -6,9 +6,9 @@ const generateToken=require("../utils/tokens")
 
 const sellerSignup= async(req,res)=>{
 
-    const {email,username,password,role}=req.body
+    const {email,username,password,role,storeName}=req.body
 
-if(!email || !username || !password)
+if(!email || !username || !password||!storeName)
 {
 return res.status(400).json("All fields are required")
 }
@@ -27,7 +27,8 @@ const hash = bcrypt.hashSync(password, saltRounds);
             email,
             username,
             password:hash,
-            role
+            role,
+            storeName
         })
 res.status(200).json("User created Successfully")
 
@@ -115,8 +116,8 @@ res.send(removeUser)
 
 const checkUser = async (req, res, next) => {
     try {
-        const { user } = req;
-        if (!user) {
+        const { seller } = req;
+        if (!seller) {
             res.status(401).json({ success: false, message: "user not autherized" });
         }
 
