@@ -22,6 +22,7 @@ profilepic:{
 },
 role:{
     type:String,
+    enum:["seller","admin"],
     default:"seller"
 }
 

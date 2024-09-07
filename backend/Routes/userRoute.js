@@ -3,9 +3,6 @@ const router=express.Router()
 const userController= require("../Controllers/userController")
 const {userAuth}= require("../Middlewares/userauth")
 const {upload}=require("../Middlewares/multer")
-router.get("/",(req,res)=>{
-    res.send("Hello user")
-})
 
 router.post("/signup", userController.userSignup)
 router.post("/login",userController.userLogin)

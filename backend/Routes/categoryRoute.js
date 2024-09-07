@@ -1,7 +1,12 @@
-const categoryController= require("../Controllers/categoryController")
 const express=require("express")
+const categoryController=require("../Controllers/categoryController")
 const router=express.Router()
 
-/*
+router.post("/createcategory",categoryController.createCategory)
 
-router.get("/",categoryController.getCategory)*/
+
+
+
+
+
+module.exports=router

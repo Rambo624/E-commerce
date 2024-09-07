@@ -3,9 +3,9 @@ const Product = require("../Models/productSchema")
 
 const createProduct = async (req, res) => {
 
-    const { title, desc, price, thumbnail } = req.body
-    let uploadUrl = {}
-    if (!title || !desc || !price) {
+    const { title, desc, price,stock,category,subcategory } = req.body
+    let uploadUrl = ""
+    if (!title || !desc || !price||!stock||!category||!subcategory) {
 
         return res.status(401).json("all fields are required")
 
@@ -34,7 +34,10 @@ const createProduct = async (req, res) => {
             title,
             desc,
             thumbnail: uploadUrl || "https://static.vecteezy.com/system/resources/previews/016/916/479/original/placeholder-icon-design-free-vector.jpg",
-            price
+            price,
+            stock,
+            category,
+            subcategory
         })
         res.status(200).json("Product added successfully")
 
@@ -48,12 +51,12 @@ const createProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {
     try {
-        const product = await Product.find()
+        const product = await Product.find().populate('category',"name").populate('subcategory','name').exec()
         if (product) {
             res.status(200).send(product)
         }
     } catch (error) {
-        res.status(400).json(error)
+        res.status(400).json({message:error})
     }
 }
 
@@ -62,7 +65,7 @@ const getProductById = async (req, res) => {
     try {
 
         const {id}=req.params
-        const product = await Product.findById(id)
+        const product = await Product.findById(id).populate('category','name').populate('subcategory',"name").exec()
         if (product) {
             res.status(200).send(product)
         }

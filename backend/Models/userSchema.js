@@ -23,9 +23,18 @@ profilepic:{
 role:{
     type:String,
     default:"user"
-}
+},
+cart:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"cart"
+},
+orders:[{
+    type:mongoose.Schema.Types.ObjectId,
+ref:"order"
+}],
 
-})
+
+},{timestamps:true})
 
 
 module.exports=mongoose.model("user",userSchema)

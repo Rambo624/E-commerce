@@ -44,11 +44,12 @@ const userLogin= async(req,res)=>{
     }
 
     try {
-        const user= await User.findOne({email})
+        const user= await User.findOne({email}).lean()
 if(!user){
     res.status(401).json("User doesnt Exist")
 
 }
+
 const hash=user.password
 
 const userauth=bcrypt.compareSync(password, hash);
@@ -56,12 +57,13 @@ const userauth=bcrypt.compareSync(password, hash);
 if(!userauth){
     return res.status(403).json("Invalid credentials")
 }
-
+const userwithoutPassword={...user}
+delete userwithoutPassword.password
 const token = generateToken(user._id)
 
 res.cookie("token",token)
 
-res.status(200).send(user)
+res.status(200).send(userwithoutPassword)
 
     } catch (error) {
         console.log(error)
@@ -73,7 +75,7 @@ const userProfile=async(req,res)=>{
     const user=req.user
     console.log(user)
 
-    const userData= await User.findOne({_id:user.id})
+    const userData= await User.findOne({_id:user.id}).populate("orders").exec()
     if(!userData){
         return res.status(400).json("user not found")
 }
@@ -141,7 +143,7 @@ const checkUser = async (req, res, next) => {
     try {
         const { user } = req;
         if (!user) {
-            res.status(401).json({ success: false, message: "user not autherized" });
+          return  res.status(401).json({ success: false, message: "user not autherized" });
         }
 
         res.json({ success: true, message: "user autherized" });
