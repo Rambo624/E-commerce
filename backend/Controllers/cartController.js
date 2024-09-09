@@ -1,5 +1,6 @@
 const Cart=require("../Models/cartSchema")
 const Product= require("../Models/productSchema")
+const User= require("../Models/userSchema")
 
 const addToCart=async(req,res)=>{
     const user = req.user;
@@ -29,6 +30,13 @@ const addToCart=async(req,res)=>{
       if (!cart) {
         // Create a new cart if one doesn't exist
         cart = new Cart({ user: user.id, products: [], totalPrice: 0 });
+        await cart.save();
+        await User.findOneAndUpdate(
+          { _id: user.id }, // Query by user ID
+          { $set: { cart: cart._id } }, // Update the cart field with the new cart ID
+          { new: true, upsert: true } // Create if it doesn't exist
+        );
+      
       }
   
       // Check if the product already exists in the cart

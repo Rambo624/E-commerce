@@ -21,7 +21,7 @@ const userData={
 try {
 
     axios.post("http://localhost:3000/signup",userData)
-    navigate("/")
+    navigate("/login")
     
 } catch (error) {
     console.log(error)

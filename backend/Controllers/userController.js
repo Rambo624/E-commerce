@@ -75,7 +75,7 @@ const userProfile=async(req,res)=>{
     const user=req.user
     console.log(user)
 
-    const userData= await User.findOne({_id:user.id}).populate("orders").exec()
+    const userData= await User.findOne({_id:user.id}).populate("orders").populate('cart').exec()
     if(!userData){
         return res.status(400).json("user not found")
 }

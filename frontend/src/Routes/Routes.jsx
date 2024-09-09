@@ -11,7 +11,9 @@ import SellerLogin from "../Pages/SellerLogin";
 import { AuthUser } from "./ProtectedRoutes/AuthUser";
 import { Authseller } from "./ProtectedRoutes/Authseller";
 import SellerHome from "../Pages/seller/SellerHome";
-
+import Productpage from "../Pages/Productpage";
+import ProductDetails from "../Pages/ProductDetails";
+import CartPage from "../Pages/CartPage";
 
 export const router = createBrowserRouter([
   {
@@ -38,7 +40,14 @@ export const router = createBrowserRouter([
     path:"",
     element:<Home/>
 },
-
+{
+    path:"product/:id",
+    element:<Productpage/>
+},
+{
+    path:"productdetails/:id",
+    element:<ProductDetails/>
+},
 
     ]
     
@@ -55,6 +64,10 @@ export const router = createBrowserRouter([
             path:"edit",
             element:<Edituser/>
         },
+        {
+            path:"cart",
+            element:<CartPage/>
+        }
     ]
 },
 {

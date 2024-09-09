@@ -26,4 +26,13 @@ const createsubCategory=async(req,res)=>{
 }
 
 
-module.exports={createsubCategory}
+const getSub= async (req,res)=>{
+
+const sub= await subCategory.find()
+if(!sub){
+    return res.status(400).json({success:false, message:"Internal server error"})
+}
+res.status(200).json({success:true, data:sub})
+}
+
+module.exports={createsubCategory,getSub}
