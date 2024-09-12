@@ -14,7 +14,7 @@ function Header() {
   const dispatch=useDispatch()
   const navigate=useNavigate()
   const user = useSelector((store) => store.user)
-  console.log(user.user)
+  
   let size= user?.user?.cart?.products?.length || ""
 const [dropdown, setdropdown]=useState(false)
   let userLogin = user.isUserLogged

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axiosInstance from '../utils/axiosInstance'
 import { useParams } from 'react-router-dom'
-
-
+import { useDispatch } from 'react-redux'
+import { removecart } from '../utils/userSlice'
 
 
 function CartPage() {
-
+const dispatch=useDispatch()
   const { id } = useParams()
   const [cart,setCart]=useState([])
   async function getCart() {
@@ -18,8 +18,18 @@ function CartPage() {
 
   useEffect(() => {
     getCart()
+
   }, [])
 
+
+  async function handleRemoveButton(id){
+    
+const response = await axiosInstance({method:"DELETE",url:`/cart/removecart/${id}`})
+
+dispatch(removecart(id))
+getCart()
+
+  }
 
 console.log(cart,"hello")
 
@@ -34,11 +44,14 @@ if(!cart.user) return <h1>Loading...</h1>
 
 
         {/*cart Section*/}
-        {cart.products.map((p)=>(  <div className='py-4 border border-grey-200 px-2 flex '>
+        {cart.products.map((p)=>(
+            
+          <div key={p.product._id} className='py-4 border border-grey-200 px-2 flex '>
+            {console.log(p.product._id)}
           <figure>
             <img className='w-36'src={p.product.thumbnail}/>
             <button className=' border border-grey-200 px-3'>-</button>
-            <input className=' border border-grey-200 w-10 mx-5' type="number" defaultValue={1} value={p.quantity}  />
+            <input className=' border border-grey-200 w-10 mx-5' type="number"  value={p.quantity}  />
             <button className=' border border-grey-200 px-3'>+</button>
 
           </figure>
@@ -46,10 +59,11 @@ if(!cart.user) return <h1>Loading...</h1>
 
 
           <div>
-            <div>
+            <div className='ml-32'>
               <h1>{p.product.title}</h1>
               <h1>{p.product.desc}</h1>
               <h1>{p.product.price}</h1>
+              <button onClick={()=>handleRemoveButton(p.product._id)} className='p-2 border border-black'>Remove</button>
             </div>
 
           </div>

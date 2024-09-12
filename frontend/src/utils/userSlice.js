@@ -27,10 +27,18 @@ const userSlice = createSlice({
                 console.error("error")
             }
 
+        },
+        removecart:(state,action)=>{
+           
+const productId=action.payload
+               
+                state.user.cart.products = state.user.cart.products.filter(
+                    (item) => item.product !== productId
+                  );
         }
     }
 })
 
 export default userSlice.reducer
 
-export const { login, logout, addcart } = userSlice.actions
+export const { login, logout, addcart ,removecart} = userSlice.actions

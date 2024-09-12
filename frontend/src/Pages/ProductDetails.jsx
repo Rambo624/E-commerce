@@ -18,6 +18,7 @@ function ProductDetails() {
     try {
       const response = await axiosInstance({ method: "GET", url: `/product/getproduct/${id}` });
       setProduct(response.data);
+      
     } catch (error) {
       console.error('Error fetching product:', error);
     }
@@ -44,7 +45,8 @@ function ProductDetails() {
     };
     try {
       const response = await axiosInstance({ method: "POST", url: "/cart/addtocart", data: productData });
-      dispatch(addcart(response.data)); // Assuming response.data contains the added product
+   console.log(response.data)
+      dispatch(addcart(response.data.data)); // Assuming response.data contains the added product
       setIncart(true);
     } catch (error) {
       console.error('Error adding product to cart:', error);

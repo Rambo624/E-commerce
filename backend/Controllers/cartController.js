@@ -60,8 +60,10 @@ const addToCart=async(req,res)=>{
       updatedCart.totalPrice = totalPrice;
       await updatedCart.save();
   
+      const addedProduct = updatedCart.products.find(p => p.product.toString() === productId);
+
       // Send the updated cart back to the client
-      res.status(200).json({status:true,message:"Product added successfully",data:updatedCart});
+      res.status(200).json({status:true,message:"Product added successfully",data:addedProduct});
     } catch (error) {
       console.error(error);
       res.status(500).json("Server error");
