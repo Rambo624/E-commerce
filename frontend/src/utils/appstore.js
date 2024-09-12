@@ -10,6 +10,8 @@ const persistConfig = {
     storage,     // Storage option
   };
 
+
+
   // Create the persisted reducer
 const persistedReducer = persistReducer(persistConfig, userReducer);
 
@@ -17,7 +19,8 @@ const persistedReducer = persistReducer(persistConfig, userReducer);
 const appstore= configureStore(
     {
     reducer:{
-user:persistedReducer
+      user:persistedReducer
+     
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

@@ -15,6 +15,7 @@ import Productpage from "../Pages/Productpage";
 import ProductDetails from "../Pages/ProductDetails";
 import CartPage from "../Pages/CartPage";
 
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -65,9 +66,10 @@ export const router = createBrowserRouter([
             element:<Edituser/>
         },
         {
-            path:"cart",
+            path:"cart/:id",
             element:<CartPage/>
-        }
+        },
+      
     ]
 },
 {

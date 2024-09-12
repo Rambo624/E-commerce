@@ -61,7 +61,7 @@ const addToCart=async(req,res)=>{
       await updatedCart.save();
   
       // Send the updated cart back to the client
-      res.status(200).json(updatedCart);
+      res.status(200).json({status:true,message:"Product added successfully",data:updatedCart});
     } catch (error) {
       console.error(error);
       res.status(500).json("Server error");
@@ -75,7 +75,7 @@ const addToCart=async(req,res)=>{
         const user=req.user
       // Find the cart and populate the 'product' field in the 'products' array
       const cart = await Cart.findOne({ user: user.id })
-        .populate('products.product')  // Populate the 'product' field
+        .populate('products.product').populate({path:'user', select:'-password'})  // Populate the 'product' field
         .exec();
   
       if (!cart) return res.status(404).json("Cart not found");
@@ -158,4 +158,46 @@ const updateCart = async (req, res) => {
 
 
 
-module.exports={addToCart,getCartDetails,updateCart}
+
+const removeCart= async (req,res)=>{
+
+const user=req.user
+const {productId}=req.params
+
+const cart= await Cart.findOne({user:user.id})
+if(!user){
+  return res.status(401).json({status:false,message:"user not found"})
+}
+const productIndex = cart.products.findIndex(
+  (item) => item.product.toString() === productId
+);
+
+
+if (productIndex === -1) {
+  return res.status(404).json({ message: "Product not found in cart." });
+}
+
+const product = await Product.findById(productId);
+
+if (!product) {
+  return res.status(404).json({ message: "Product not found." });
+}
+
+  // Update the total price by subtracting the removed product's price multiplied by its quantity
+  const removedProduct = cart.products[productIndex];
+  cart.totalPrice -= removedProduct.quantity * product.price;
+
+  // Remove the product from the cart's products array
+  cart.products.splice(productIndex, 1);
+
+  // Save the updated cart
+  await cart.save();
+
+  return res.status(200).json({ message: "Product removed from cart.", cart });
+
+
+
+
+}
+
+module.exports={addToCart,getCartDetails,updateCart,removeCart}

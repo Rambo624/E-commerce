@@ -14,7 +14,7 @@ export const AuthUser = ({ children }) => {
                 url: "/check-user",
             });
             setIsUser(true);
-            console.log(response);
+          
         } catch (error) {
             setIsUser(false);
             console.log(error);

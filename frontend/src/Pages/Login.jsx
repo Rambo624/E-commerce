@@ -29,6 +29,7 @@ try {
   
    if(response.status===200){
       dispatch(login(response.data))
+      console.log(response.data)
 navigate("/profile")
    }
 

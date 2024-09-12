@@ -5,7 +5,7 @@ const {upload}= require("../Middlewares/multer")
 router.post("/createcategory",upload.single('image'),categoryController.createCategory)
 router.get("/categories",categoryController.getCategories)
 router.put("/editcategory/:id", upload.single('image') , categoryController.editCategory)
-
+router.delete("/delete/:id",categoryController.removeCategory)
 
 
 

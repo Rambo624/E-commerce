@@ -44,7 +44,7 @@ const userLogin= async(req,res)=>{
     }
 
     try {
-        const user= await User.findOne({email}).lean()
+        const user= await User.findOne({email}).populate("cart").lean()
 if(!user){
     res.status(401).json("User doesnt Exist")
 
@@ -73,7 +73,7 @@ res.status(200).send(userwithoutPassword)
 
 const userProfile=async(req,res)=>{
     const user=req.user
-    console.log(user)
+  
 
     const userData= await User.findOne({_id:user.id}).populate("orders").populate('cart').exec()
     if(!userData){
@@ -84,24 +84,37 @@ res.send(userData)
 
 }
 
+const addAddress=async(req,res)=>{
+const user=req.user
+const {name,House,city,pin,state}=req.body
 
-/*const userProfile= async(req,res)=>{
+if(!House||!city||!pin||!state||!name){
+    return res.status(400).json({message:"all fields are required"})
+}
 
-
-    const user=req.user
-    console.log(user)
-const {id}=req.params
-const userData= await User.findOne({_id:id})
-
+const userData= await User.findById(user.id)
 if(!userData){
-    return res.json("user not found")
+    return res.status(400).json({message:"User not Found"})
 }
 
-res.send(userData)
 
+const address={
+    House,city,pin,state,name
+}
+
+ userData.address.push(address)
+
+ const updatedUser = await userData.save();
+ res.status(200).json({
+    message: 'Address added successfully',
+    user: updatedUser
+  });
 
 }
-*/
+
+
+    
+
 
 const userEdit=async(req,res)=>{
     let uploadUrl;
@@ -167,4 +180,4 @@ const userLogout=async(req,res)=>{
 }
 
 
-module.exports={userSignup,userLogin,userLogout,userProfile,userDelete,userEdit,checkUser}
+module.exports={userSignup,userLogin,userLogout,userProfile,userDelete,userEdit,checkUser,addAddress}

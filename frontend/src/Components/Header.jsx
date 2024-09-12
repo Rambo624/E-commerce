@@ -8,18 +8,23 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../utils/userSlice';
 import { useDispatch } from 'react-redux';
+
 import axios from 'axios';
 function Header() {
   const dispatch=useDispatch()
   const navigate=useNavigate()
   const user = useSelector((store) => store.user)
+  console.log(user.user)
+  let size= user?.user?.cart?.products?.length || ""
 const [dropdown, setdropdown]=useState(false)
   let userLogin = user.isUserLogged
   let username = null
   let profilepic
+  let id
   if (user.user) {
     username = user.user.username
     profilepic=user.user.profilepic
+    id=user.user._id
   }
 
   const [ishover, setIsHover] = useState(false)
@@ -69,7 +74,7 @@ dispatch(logout())
 
         </div>
 
-        {userLogin ? <button className='flex items-center gap-3 mt-3'><FaShoppingCart />Cart</button> :<Link to={"/sellersignup"}><button className='flex items-center gap-3 mt-3'><FaShop />Become a Seller</button></Link> }
+        {userLogin ? <Link to={`/cart/${id}`}><button className='flex items-center gap-3 mt-3'><FaShoppingCart  />Cart {size}</button></Link> :<Link to={"/sellersignup"}><button className='flex items-center gap-3 mt-3'><FaShop />Become a Seller</button></Link> }
   <Link to={"/profile"}>{userLogin && <img className='w-8 h-7 mt-3' src={profilepic} alt="" />}</Link>
       </div>
     </div>

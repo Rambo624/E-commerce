@@ -79,7 +79,7 @@ const {name,description,image}=req.body
    if(!category){
     return res.status(400).json({success:false,message:"categories not found"})
 }
-res.status(200).json({success:true})
+res.status(200).json({success:true,data:category})
 
 
     } catch (error) {
@@ -88,4 +88,18 @@ res.status(200).json({success:true})
 }
 
 
-module.exports={createCategory,getCategories,editCategory}
+const removeCategory=async(req,res)=>{
+    try {
+       const {id}=req.params
+       const category= await Category.findByIdAndDelete(id) 
+       if(!category){
+        return res.status(400).json("category not found")
+       }
+       return res.status(200).json({message:"category removed",data:category})
+
+    } catch (error) {
+        
+    }
+}
+
+module.exports={createCategory,getCategories,editCategory,removeCategory}
