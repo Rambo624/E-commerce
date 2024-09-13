@@ -8,13 +8,21 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../utils/userSlice';
 import { useDispatch } from 'react-redux';
+import { FaSearch } from 'react-icons/fa';
 
 import axios from 'axios';
+import axiosInstance from '../utils/axiosInstance';
+import useProducts from '../hooks/useProducts';
+
+
+
 function Header() {
+ 
   const dispatch=useDispatch()
   const navigate=useNavigate()
+  const {products,loading,error}=useProducts()
   const user = useSelector((store) => store.user)
-  
+  const [searchText,setSearchText]=useState(null)
   let size= user?.user?.cart?.products?.length || ""
 const [dropdown, setdropdown]=useState(false)
   let userLogin = user.isUserLogged
@@ -44,6 +52,25 @@ dispatch(logout())
   navigate("/login")
 }
 
+async function handleSearchBar(e){
+setSearchText(e.target.value)
+}
+
+async function handleSearch(){
+  try {
+    if(!searchText.trim()) return null
+  console.log(products)
+  const results = products.filter((product) => product.title.toLowerCase().includes(searchText.toLowerCase()));
+  navigate("/results",{state:{results}})
+console.log(results)
+  } catch (error) {
+    console.log(error)
+  }
+
+  }
+
+
+
 
   return (
     <div className=' py-4 flex justify-between bg-white sticky top-0 z-50 shadow-xl'>
@@ -51,8 +78,12 @@ dispatch(logout())
         <Link to={"/"}><img src={import.meta.env.VITE_LOGO} alt="" /></Link>
       </div>
 
-      <div className='w-5/12'>
-        <input className='p-3 w-full rounded-xl bg-gray-200' type="text" placeholder='Search for Products,Brands etc...' />
+      <div className='w-5/12 flex'>
+      {userLogin && ( 
+        <>
+        <input onChange={(e)=>handleSearchBar(e)} className='p-3 w-full rounded-bl-xl rounded-tl-xl bg-gray-200' type="text" placeholder='Search for Products,Brands etc...' />
+        <button onClick={handleSearch} className=' p-3  bg-gray-200 border border-black rounded-tr-xl rounded-br-xl'><FaSearch/></button> </>)}
+       
       </div>
 
       <div className='w-4/12 px-3 flex gap-11 justify-end'>
@@ -68,7 +99,7 @@ dispatch(logout())
             <li className=' hover:bg-gray-200 p-3 px-14 '>Log Out</li>
             <li className=' hover:bg-gray-200 p-3 px-14 '>Log Out</li>
             <li className=' hover:bg-gray-200 p-3 px-14 '>Log Out</li>
-
+<li>{searchText}</li>
            </ul>
           </div>}  
 

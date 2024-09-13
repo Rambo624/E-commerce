@@ -100,6 +100,8 @@ const editProduct = async (req, res) => {
 }
 
 
+
+
 const deleteProduct = async (req, res) => {
     try {
         const { id } = req.params

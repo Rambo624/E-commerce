@@ -55,7 +55,7 @@ function ProductDetails() {
 
   // Navigate to cart
   function handleCartbutton() {
-    navigate("/cart");
+    navigate(`/cart/${id}`);
   }
 
   // Loading state

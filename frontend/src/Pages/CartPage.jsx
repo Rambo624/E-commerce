@@ -77,6 +77,10 @@ if(!cart.user) return <h1>Loading...</h1>
           <p>platform fee</p>
           <p>Delivery charge</p>
           <p className='border border-grey-200 p-2 font-bold text-lg'>Total Amount</p>
+          <div className='flex justify-center mt-11'>
+          <button className='p-2 bg-green-400 text-white'>Checkout</button>
+          </div>
+          
         </div>
       </div>
 

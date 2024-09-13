@@ -14,6 +14,7 @@ import SellerHome from "../Pages/seller/SellerHome";
 import Productpage from "../Pages/Productpage";
 import ProductDetails from "../Pages/ProductDetails";
 import CartPage from "../Pages/CartPage";
+import Results from "../Pages/Results";
 
 
 export const router = createBrowserRouter([
@@ -25,6 +26,7 @@ export const router = createBrowserRouter([
     path:"login",
     element:<Login/>
 },
+
 {
     path:"signup",
     element:<Signup/>
@@ -49,6 +51,11 @@ export const router = createBrowserRouter([
     path:"productdetails/:id",
     element:<ProductDetails/>
 },
+{
+    path:"results",
+    element:<Results/>
+},
+
 
     ]
     
