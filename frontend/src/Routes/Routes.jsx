@@ -15,6 +15,9 @@ import Productpage from "../Pages/Productpage";
 import ProductDetails from "../Pages/ProductDetails";
 import CartPage from "../Pages/CartPage";
 import Results from "../Pages/Results";
+import PaymentSuccess from "../Pages/PaymentSuccess";
+import PaymentFail from "../Pages/PaymentFail";
+
 
 
 export const router = createBrowserRouter([
@@ -76,6 +79,14 @@ export const router = createBrowserRouter([
             path:"cart/:id",
             element:<CartPage/>
         },
+        {
+            path:"user/payment/success",
+            element:<PaymentSuccess/>
+        },
+        {
+            path:"user/payment/cancel",
+            element:<PaymentFail/>
+        },
       
     ]
 },
@@ -83,10 +94,12 @@ export const router = createBrowserRouter([
     path:"/seller",
     element:(<Authseller><RootLayout/></Authseller>),
     children:[
+     
         {
           path:"home",
           element:<SellerHome/>  
         },
+       
       
     ]
 }

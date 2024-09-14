@@ -1,6 +1,7 @@
 const Cart=require("../Models/cartSchema")
 const Product= require("../Models/productSchema")
 const User= require("../Models/userSchema")
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const addToCart=async(req,res)=>{
     const user = req.user;
@@ -197,9 +198,77 @@ if (!product) {
 
   return res.status(200).json({ message: "Product removed from cart.", cart });
 
-
-
-
 }
 
-module.exports={addToCart,getCartDetails,updateCart,removeCart}
+
+/*
+const payment= async(req,res,next)=>{
+  try {
+    const {products}=req.body
+console.log(products)
+const lineItems = products.map((product) => ({
+  price_data: {
+    currency: 'inr',
+    product_data: {
+      name: product.name,
+      images: [product.image]
+    }
+  },
+  // Optionally, you might want to include a quantity field
+  quantity: product.quantity || 1
+}));
+
+
+const session=await stripe.checkout.sessions.create({
+  payment_method_types:["cards"],
+  line_items:lineItems,
+  mode:"payment",
+  success_url:`${process.env.CLIENT_DOMAIN}/user/payment/success`,
+    cancel_url:`${process.env.CLIENT_DOMAIN}/user/payment/success`
+})
+res.json({success:true, sessionId:session.id})
+  } catch (error) {
+    next(error)
+  }
+}
+*/
+
+const payment = async (req, res, next) => {
+  try {
+    const { products } = req.body;
+    console.log(products);
+
+    // Ensure products array is valid
+    if (!Array.isArray(products) || products.length === 0) {
+      return res.status(400).json({ error: 'No products provided' });
+    }
+
+    const lineItems = products.map(({ product, quantity }) => ({
+      price_data: {
+        currency: 'inr',
+        product_data: {
+          name: product.title,
+          images: [product.thumbnail] // Use the thumbnail URL for images
+        },
+        unit_amount: product.price * 100, // Stripe expects amount in cents
+      },
+      quantity: quantity || 1 // Default to 1 if quantity is not specified
+    }));
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: lineItems,
+      mode: "payment",
+      success_url: `${process.env.CLIENT_DOMAIN}/user/payment/success`,
+      cancel_url: `${process.env.CLIENT_DOMAIN}/user/payment/cancel`
+    });
+
+    res.json({ success: true, sessionId: session.id });
+  } catch (error) {
+    console.error('Error creating checkout session:', error);
+    next(error);
+  }
+};
+
+
+module.exports={addToCart,getCartDetails,updateCart,removeCart,payment}

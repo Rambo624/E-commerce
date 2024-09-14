@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
+    "@stripe/stripe-js": "^4.4.0",
+    "@syncfusion/ej2-react-grids": "^26.2.14",
     "axios": "^1.7.5",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",

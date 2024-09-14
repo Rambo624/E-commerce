@@ -3,6 +3,8 @@ import axiosInstance from '../utils/axiosInstance'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { removecart } from '../utils/userSlice'
+import {loadStripe} from '@stripe/stripe-js';
+
 
 
 function CartPage() {
@@ -21,6 +23,7 @@ const dispatch=useDispatch()
 
   }, [])
 
+  {/*FUNCTIONS*/}
 
   async function handleRemoveButton(id){
     
@@ -30,6 +33,24 @@ dispatch(removecart(id))
 getCart()
 
   }
+
+
+  async function makePayment(){
+    try {
+      const stripe = await loadStripe(import.meta.env.VITE_PUBLISHABLE_KEY);
+      console.log(cart)
+
+const session= await axiosInstance({method:"POST",url:"/cart/payment",data:{products:cart.products}})
+console.log(session)
+const result= stripe.redirectToCheckout({sessionId:session.data.sessionId})
+    } catch (error) {
+      console.log(error)
+    }
+   
+  }
+
+
+  {/*FUNCTIONS*/}
 
 console.log(cart,"hello")
 
@@ -78,7 +99,7 @@ if(!cart.user) return <h1>Loading...</h1>
           <p>Delivery charge</p>
           <p className='border border-grey-200 p-2 font-bold text-lg'>Total Amount</p>
           <div className='flex justify-center mt-11'>
-          <button className='p-2 bg-green-400 text-white'>Checkout</button>
+          <button onClick={makePayment} className='p-2 bg-green-400 text-white'>Checkout</button>
           </div>
           
         </div>
