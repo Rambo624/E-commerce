@@ -17,9 +17,9 @@ if(!tokenVerified){
     return  res.status(403).json("unauthorized access")
 }
 
-console.log(tokenVerified.role,"haai")
-if(tokenVerified.role!= "seller"){
-    return res.status(403).json({success:false, message:"only sellers are authorised to access"})
+
+if(tokenVerified.role!= "seller" && tokenVerified.role!= "admin"){
+    return res.status(403).json({success:false, message:"only sellers and admins are authorised to access"})
 }
 req.seller=tokenVerified
 

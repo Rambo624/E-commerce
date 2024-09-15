@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 
-export const Authseller = ({ children }) => {
-    const [isSeller, setIsSeller] = useState(false);
+export const AuthAdmin = ({ children }) => {
+    const [isAdmin, setIsAdmin] = useState(false);
    
     const navigate = useNavigate()
 
@@ -13,18 +13,18 @@ export const Authseller = ({ children }) => {
                 method: "GET",
                 url: "/seller/check-user",
             });
-            console.log(response);
-        if(response.data.data==="seller"){
-            setIsSeller(true)
-            navigate("/seller/home")
+         //   console.log(response);
+        
+         if(response.data.data==="admin"){
+            setIsAdmin(true)
+            navigate("/admin/home")
         }
        else{
         navigate('/sellerlogin')
        }
-      
            
         } catch (error) {
-            setIsSeller(false);
+            setIsAdmin(false);
      
             console.log(error,"error");
             navigate('/sellerlogin')
@@ -35,5 +35,5 @@ export const Authseller = ({ children }) => {
         checkUser()
     },[])
 
-    return isSeller ? children : null;
+    return isAdmin ? children : null;
 };

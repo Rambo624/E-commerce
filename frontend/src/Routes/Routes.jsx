@@ -17,7 +17,8 @@ import CartPage from "../Pages/CartPage";
 import Results from "../Pages/Results";
 import PaymentSuccess from "../Pages/PaymentSuccess";
 import PaymentFail from "../Pages/PaymentFail";
-
+import {AuthAdmin} from "./ProtectedRoutes/AuthAdmin";
+import AdminHome from "../Pages/Admin/AdminHome";
 
 
 export const router = createBrowserRouter([
@@ -101,6 +102,16 @@ export const router = createBrowserRouter([
         },
        
       
+    ]
+},
+{
+    path:"/admin",
+    element:(<AuthAdmin><RootLayout/></AuthAdmin>),
+    children:[
+        {
+            path:"home",
+            element:<AdminHome/>
+        }
     ]
 }
 ]);

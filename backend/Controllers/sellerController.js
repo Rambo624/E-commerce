@@ -1,5 +1,6 @@
 
 const User=require("../Models/sellerSchema")
+const Admin=require("../Models/adminSchema")
 const bcrypt=require("bcrypt")
 const generateToken=require("../utils/tokens")
 
@@ -39,37 +40,58 @@ res.status(200).json("User created Successfully")
 }
 
 
-const sellerLogin= async(req,res)=>{
-    const {email,password}=req.body
-    if(!email||!password){
-        res.status(401).json("all fields are required")
+const sellerLogin = async (req, res) => {
+    const { email, password } = req.body;
+
+    // Validate input fields
+    if (!email || !password) {
+        return res.status(400).json({ success: false, message: "All fields are required" });
     }
 
     try {
-        const user= await User.findOne({email})
-if(!user){
-    res.status(401).json("User doesnt Exist")
+        // Run both queries concurrently
+        const [user, admin] = await Promise.all([
+            User.findOne({ email }),
+            Admin.findOne({ email: email })
+        ]);
 
-}
-const hash=user.password
+        // Check if neither user nor admin exists
+        if (!user && !admin) {
+            return res.status(401).json({ success: false, message: "User doesn't exist" });
+        }
 
-const userauth=bcrypt.compareSync(password, hash);
+        let userauth = false;
+        let adminauth = false;
 
-if(!userauth){
-    return res.status(403).json("Invalid credentials")
-}
+        // Validate user credentials
+        if (user) {
+            const isMatch = bcrypt.compareSync(password, user.password);
+            userauth = isMatch;
+        }
 
-const token = generateToken(user._id,user.role)
+        // Validate admin credentials
+        if (admin) {
+            const isMatch = bcrypt.compareSync(password, admin.password);
+            adminauth = isMatch;
+        }
 
-res.cookie("token",token)
+        // Check if credentials are valid
+        if (!userauth && !adminauth) {
+            return res.status(403).json({ success: false, message: "Invalid credentials" });
+        }
 
-res.status(200).json("logged in successfully")
+        // Generate token and set cookie
+        const token = generateToken(user ? user._id : admin._id, user ? user.role : 'admin');
+
+        res.cookie("token", token,); // Set secure flag in production
+ 
+        res.status(200).json({ success: true, message: "Logged in successfully" ,role:user?user.role:"admin"});
 
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
     }
-
-}
+};
 
 const sellerProfile= async(req,res)=>{
 
@@ -117,11 +139,12 @@ res.send(removeUser)
 const checkUser = async (req, res, next) => {
     try {
         const { seller } = req;
-        if (!seller) {
+       // console.log(seller.role,"check user")
+         if (seller.role !== "seller" && seller.role !== "admin") {
             res.status(401).json({ success: false, message: "user not autherized" });
         }
 
-        res.json({ success: true, message: "user autherized" });
+        res.json({ success: true, message: "user autherized",data:seller.role });
     } catch (error) {
         console.log(error);
         res.status(error.statusCode || 500).json({ message: error.message || "Internal server error" });

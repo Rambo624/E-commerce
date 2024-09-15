@@ -19,10 +19,14 @@ async function handleLogin(e){
    try {
    
      const response= await  axiosInstance({method:"POST", url:`/seller/login`,data:sellerData})
-     
-      if(response.status===200){
+     console.log(response)
+      if(response.data.role==="seller"){
        
    navigate("/seller/home")
+      }
+
+      if(response.data.role==="admin"){
+         navigate("/admin/home")
       }
    
      

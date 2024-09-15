@@ -24,6 +24,10 @@ role:{
     type:String,
     default:"user"
 },
+isBlocked:{
+    type:Boolean,
+    default:false
+},
 cart:{
     type:mongoose.Schema.Types.ObjectId,
     ref:"cart"
