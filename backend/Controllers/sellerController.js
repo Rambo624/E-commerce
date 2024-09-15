@@ -51,8 +51,8 @@ const sellerLogin = async (req, res) => {
     try {
         // Run both queries concurrently
         const [user, admin] = await Promise.all([
-            User.findOne({ email }),
-            Admin.findOne({ email: email })
+            User.findOne({ email }).lean(),
+            Admin.findOne({ email: email }).lean()
         ]);
 
         // Check if neither user nor admin exists
@@ -84,8 +84,13 @@ const sellerLogin = async (req, res) => {
         const token = generateToken(user ? user._id : admin._id, user ? user.role : 'admin');
 
         res.cookie("token", token,); // Set secure flag in production
+const data= user?user:admin
+console.log(data,"data")
+        delete data.password
+     console.log(data,"after delete");
+     
  
-        res.status(200).json({ success: true, message: "Logged in successfully" ,role:user?user.role:"admin"});
+        res.status(200).json({ success: true, message: "Logged in successfully" ,role:user?user.role:"admin", data:data});
 
     } catch (error) {
         console.log(error);

@@ -13,7 +13,7 @@ export const Authseller = ({ children }) => {
                 method: "GET",
                 url: "/seller/check-user",
             });
-            console.log(response);
+         //   console.log(response);
         if(response.data.data==="seller"){
             setIsSeller(true)
             navigate("/seller/home")

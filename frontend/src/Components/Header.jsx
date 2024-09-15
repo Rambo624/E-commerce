@@ -22,17 +22,19 @@ function Header() {
   const navigate=useNavigate()
   const {products,loading,error}=useProducts()
   const user = useSelector((store) => store.user)
+  const seller= useSelector((store)=>store.seller)
   const [searchText,setSearchText]=useState(null)
   let size= user?.user?.cart?.products?.length || ""
 const [dropdown, setdropdown]=useState(false)
-  let userLogin = user.isUserLogged
+  let userLogin = user.isUserLogged || seller.isSellerLogged
+  
   let username = null
   let profilepic
   let id
-  if (user.user) {
-    username = user.user.username
-    profilepic=user.user.profilepic
-    id=user.user._id
+  if (user.user|| seller.seller) {
+    username = user.user?.username || seller.seller?.data?.username ||seller.seller?.data?.name
+    profilepic=user.user?.profilepic || seller.seller?.data?.profilepic
+    id=user.user?._id || seller.seller?.data?._id
   }
 
   const [ishover, setIsHover] = useState(false)

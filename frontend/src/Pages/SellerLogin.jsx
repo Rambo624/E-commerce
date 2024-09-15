@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom'
 import { useRef } from 'react'
 import axiosInstance from '../utils/axiosInstance'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { login } from '../utils/sellerSlice'
+
+
 function SellerLogin() {
+   const dispatch=useDispatch()
 const email=useRef()
 const password=useRef()
 const navigate=useNavigate()
@@ -23,10 +28,12 @@ async function handleLogin(e){
       if(response.data.role==="seller"){
        
    navigate("/seller/home")
+   dispatch(login(response.data))
       }
 
       if(response.data.role==="admin"){
          navigate("/admin/home")
+         dispatch(login(response.data))
       }
    
      

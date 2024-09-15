@@ -2,7 +2,7 @@ import {  configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import userReducer from "./userSlice"
-
+import sellerReducer from "./sellerSlice"
 
 
 const persistConfig = {
@@ -14,12 +14,13 @@ const persistConfig = {
 
   // Create the persisted reducer
 const persistedReducer = persistReducer(persistConfig, userReducer);
-
+const persistedSellerReducer = persistReducer(persistConfig, sellerReducer);
 
 const appstore= configureStore(
     {
     reducer:{
-      user:persistedReducer
+      user:persistedReducer,
+      seller: persistedSellerReducer,
      
     },
     middleware: (getDefaultMiddleware) =>
