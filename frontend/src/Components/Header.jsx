@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { logout } from '../utils/userSlice';
 import { useDispatch } from 'react-redux';
 import { FaSearch } from 'react-icons/fa';
-
+import { sellerlogout } from '../utils/sellerSlice';
 import axios from 'axios';
 import axiosInstance from '../utils/axiosInstance';
 import useProducts from '../hooks/useProducts';
@@ -49,9 +49,15 @@ function handleMouseLeave(){
 }
 
 function handleLogout(){
-  axios.post("http://localhost:3000/logout",{},{ withCredentials: true })
+  if(user){
+    axios.post("http://localhost:3000/logout",{},{ withCredentials: true })
 dispatch(logout())
   navigate("/login")
+  }
+ axiosInstance({method:"POST",url:"/seller/logout"})
+ dispatch(sellerlogout())
+ navigate("/login")
+  
 }
 
 async function handleSearchBar(e){

@@ -3,7 +3,7 @@ const Product = require("../Models/productSchema")
 
 const createProduct = async (req, res) => {
 
-    const { title, desc, price,stock,category,subcategory } = req.body
+    const { title, desc, price,stock,category,subcategory,seller } = req.body
     let uploadUrl = ""
     if (!title || !desc || !price||!stock||!category||!subcategory) {
 
@@ -37,7 +37,8 @@ const createProduct = async (req, res) => {
             price,
             stock,
             category,
-            subcategory
+            subcategory,
+            seller
         })
         res.status(200).json("Product added successfully")
 

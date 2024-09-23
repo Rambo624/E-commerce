@@ -12,7 +12,7 @@ const sellerSlice = createSlice({
             state.isSellerLogged = true
             state.seller = action.payload
         },
-        logout: (state, action) => {
+        sellerlogout: (state, action) => {
             state.isSellerLogged = false
             state.seller = null
         },
@@ -23,4 +23,4 @@ const sellerSlice = createSlice({
 
 export default sellerSlice.reducer
 
-export const { login, logout} = sellerSlice.actions
+export const { login, sellerlogout} = sellerSlice.actions

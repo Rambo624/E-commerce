@@ -19,6 +19,9 @@ import PaymentSuccess from "../Pages/PaymentSuccess";
 import PaymentFail from "../Pages/PaymentFail";
 import {AuthAdmin} from "./ProtectedRoutes/AuthAdmin";
 import AdminHome from "../Pages/Admin/AdminHome";
+import SellerLayout from "../Layout/SellerLayout";
+import SellerProductPage from "../Pages/seller/sellerProductPage";
+import AddProduct from "../Pages/seller/AddProduct";
 
 
 export const router = createBrowserRouter([
@@ -93,14 +96,21 @@ export const router = createBrowserRouter([
 },
 {
     path:"/seller",
-    element:(<Authseller><RootLayout/></Authseller>),
+    element:(<Authseller><SellerLayout/></Authseller>),
     children:[
      
         {
           path:"home",
           element:<SellerHome/>  
         },
-       
+        {
+            path:"sellerProducts",
+            element:<SellerProductPage/>
+        } ,
+        {
+            path:"addproduct",
+            element:<AddProduct/> 
+          },
       
     ]
 },
@@ -111,7 +121,8 @@ export const router = createBrowserRouter([
         {
             path:"home",
             element:<AdminHome/>
-        }
+        },
+        
     ]
 }
 ]);
