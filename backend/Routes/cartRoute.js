@@ -11,4 +11,5 @@ router.get("/getcart/:id",userAuth,cartController.getCartDetails)
 router.put("/updatecart/:id",userAuth,cartController.updateCart)
 router.delete("/removecart/:productId",userAuth,cartController.removeCart)
 router.post("/payment",userAuth,cartController.payment)
+router.get("/getsession",userAuth,cartController.getSession)
 module.exports=router

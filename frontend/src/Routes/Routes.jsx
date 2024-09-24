@@ -22,7 +22,7 @@ import AdminHome from "../Pages/Admin/AdminHome";
 import SellerLayout from "../Layout/SellerLayout";
 import SellerProductPage from "../Pages/seller/sellerProductPage";
 import AddProduct from "../Pages/seller/AddProduct";
-
+import Orders from "../Pages/Orders";
 
 export const router = createBrowserRouter([
   {
@@ -90,6 +90,10 @@ export const router = createBrowserRouter([
         {
             path:"user/payment/cancel",
             element:<PaymentFail/>
+        },
+        {
+            path:"orders",
+            element:<Orders/>
         },
       
     ]

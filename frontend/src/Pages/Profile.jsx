@@ -37,11 +37,11 @@ const {username,email,profilepic}=userDetails
 
 
   return (
-    <div className='mx-20 mt-6 flex' >
+    <div className='mx-20 min-h-screen mt-6 flex' >
      <div className='w-3/12'>
 
      {/* Hello User Section */}
-      <div className='flex border border-grey-200 gap-10 bg-red-200'>
+      <div className='flex border border-grey-200 gap-10 '>
         <figure>
           <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/profile-pic-male_4811a1.svg" alt="" />
 
@@ -53,8 +53,8 @@ const {username,email,profilepic}=userDetails
        </div>
         {/* Hello User Section */}
 
-        <div className='bg-red-200'>
-          <h1 className='py-2 ml-11 border border-grey-200 mt-8'>My Orders</h1>
+        <div className=''>
+          <Link to={"/orders"}><h1 className='py-2 ml-11 border border-grey-200 mt-8'>My Orders</h1></Link>
           <h1 className='py-2 ml-11'>Account settings</h1>
           <p className='ml-11'>Profile info</p>
           <p className='ml-11'>Profile info</p>
@@ -62,7 +62,7 @@ const {username,email,profilepic}=userDetails
         </div>
 
      </div>
-     <div className='w-9/12 bg-red-200 ml-6'>
+     <div className='w-9/12  ml-6'>
      <div className='px-5'>
      <h1>Personal Info</h1>
 

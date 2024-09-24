@@ -9,6 +9,7 @@ import {loadStripe} from '@stripe/stripe-js';
 
 function CartPage() {
 const dispatch=useDispatch()
+const [isProcessing, setIsProcessing] = useState(false);
   const { id } = useParams()
   const [cart,setCart]=useState([])
   async function getCart() {
@@ -36,15 +37,20 @@ getCart()
 
 
   async function makePayment(){
+    if (isProcessing) return; // Prevent multiple clicks
+  setIsProcessing(true);
     try {
       const stripe = await loadStripe(import.meta.env.VITE_PUBLISHABLE_KEY);
-      console.log(cart)
+     // console.log(cart)
 
 const session= await axiosInstance({method:"POST",url:"/cart/payment",data:{products:cart.products}})
-console.log(session)
-const result= stripe.redirectToCheckout({sessionId:session.data.sessionId})
+
+window.open(session.data.url, '_blank');
+console.log(session,"hello")
     } catch (error) {
       console.log(error)
+    }finally {
+      setIsProcessing(false); // Re-enable the button if necessary
     }
    
   }
@@ -52,7 +58,7 @@ const result= stripe.redirectToCheckout({sessionId:session.data.sessionId})
 
   {/*FUNCTIONS*/}
 
-console.log(cart,"hello")
+//console.log(cart,"hello")
 
 if(!cart.user) return <h1>Loading...</h1>
   return (

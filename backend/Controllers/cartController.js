@@ -1,4 +1,5 @@
 const Cart=require("../Models/cartSchema")
+const Order=require("../Models/orderSchema")
 const Product= require("../Models/productSchema")
 const User= require("../Models/userSchema")
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -236,7 +237,7 @@ res.json({success:true, sessionId:session.id})
 const payment = async (req, res, next) => {
   try {
     const { products } = req.body;
-    console.log(products);
+    console.log(products,"product");
 
     // Ensure products array is valid
     if (!Array.isArray(products) || products.length === 0) {
@@ -262,8 +263,22 @@ const payment = async (req, res, next) => {
       success_url: `${process.env.CLIENT_DOMAIN}/user/payment/success`,
       cancel_url: `${process.env.CLIENT_DOMAIN}/user/payment/cancel`
     });
-
-    res.json({ success: true, sessionId: session.id });
+console.log(session,"session")
+if(session){
+  const order =new Order({
+    user:req.user.id,
+    sessionId:session.id,
+    products: products.map(({ product, quantity }) => ({
+      product: product._id, // Store the product's ObjectId
+      stock: quantity || 1,  // Store the quantity as 'stock'
+    })),
+    totalamount: products.reduce((total, { product, quantity }) => total + product.price * (quantity || 1), 0), // Calculate total amount
+  })
+await order.save()
+res.json({ success: true, sessionId: session.id,url: session.url  });
+}
+  
+   
   } catch (error) {
     console.error('Error creating checkout session:', error);
     next(error);
@@ -271,4 +286,20 @@ const payment = async (req, res, next) => {
 };
 
 
-module.exports={addToCart,getCartDetails,updateCart,removeCart,payment}
+const getSession=async(req,res)=>{
+try {
+  const user=req.user.id
+  const orderDetails= await Order.find({user:user})
+  const session = await Promise.all(
+    orderDetails.map(order => stripe.checkout.sessions.retrieve(order.sessionId))
+  );
+
+  res.json({message:"successfully fetched orderDetails",success:true,data:session})
+} catch (error) {
+  console.log(error)
+}
+}
+
+
+
+module.exports={addToCart,getCartDetails,updateCart,removeCart,payment,getSession}

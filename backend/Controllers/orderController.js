@@ -2,34 +2,24 @@ const Order= require("../Models/orderSchema")
 const User=require("../Models/userSchema")
 
 
-const createOrder=async(req,res)=>{
+const getOrder=async(req,res)=>{
 
-const {user,products,totalamount}=req.body
 
-if(!user||!products||!totalamount){
-    return res.status(400).json({success:false,message:"All fields are required"})
+const user=req.user
+const orderDetails= await Order.find({user:user.id}).populate({
+    path: 'products.product', // Path to the product field in the products array
+    select: 'title price thumbnail' // Fields to return from the product model
+  });
+console.log(orderDetails)
+if(!orderDetails){
+    res.json({success:false})
 }
-
-const newOrder= await Order.create({
-    user,
-    products: products.map(item => ({
-        product: item.product,
-        stock: item.stock
-    })),
-    totalamount
-})
-
-      // Update the user's orders array
-      await User.findByIdAndUpdate(user, {
-        $push: { orders: newOrder._id }
-    });
-
-    // Respond with the created order
-    res.status(200).json({ success: true, message: "Order placed successfully", order: newOrder });
+res.json({success:true,data:orderDetails})
+    
 
 
 }
 
 
 
-module.exports={createOrder}
+module.exports={getOrder}
