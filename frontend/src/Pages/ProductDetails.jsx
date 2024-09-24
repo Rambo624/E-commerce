@@ -11,6 +11,7 @@ function ProductDetails() {
   const user = useSelector((store) => store.user);
   
   const [product, setProduct] = useState(null);
+  const [review,setReview]=useState([])
   const [inCart, setIncart] = useState(false);
 
   // Function to fetch product details
@@ -24,6 +25,12 @@ function ProductDetails() {
     }
   }
 
+
+  async function getReviews() {
+const response= await axiosInstance({method:"GET",url:`/product/getreview/${id}`})
+console.log(response.data.data)
+setReview(response.data.data)
+  }
   // Check if product is in cart
   useEffect(() => {
     if (user.user?.cart?.products) {
@@ -35,6 +42,7 @@ function ProductDetails() {
   // Fetch product details on component mount
   useEffect(() => {
     getProduct();
+    getReviews()
   }, [id]);
 
   // Handle adding product to cart
@@ -78,11 +86,24 @@ function ProductDetails() {
           <button className='ml-5 bg-[#fb641b] text-white p-4 w-60'>BUY NOW</button>
         </div>
       </div>
-      <div className='w-8/12 bg-red-200 m-10'>
-        <h1>{title}</h1>
+      <div className='w-8/12  m-10'>
+      <div className='bg-red-200'>
+      <h1>{title}</h1>
         <p>{desc}</p>
         <p className='font-bold text-xl'>{price}</p>
       </div>
+     <div className=''>
+      <h1 className='font-medium mb-5 border shadow-sm py-7 mt-5'>Ratings and Reviews</h1>
+      {review && review.map((r)=>(<div className='border shadow-sm mt-3'>
+        <h1><p className='font-bold'><p className='rounded-md text-sm text-white p-0.5 bg-green-500 inline-block'>{r.rating} ⭐</p> {r.title}</p></h1>
+        <p>{r.comment}</p>
+        <p className='text-sm text-gray-400'>{r.user.username}</p>
+      </div>))}
+      
+     </div>
+        
+      </div>
+    
     </div>
   );
 }

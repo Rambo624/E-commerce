@@ -65,7 +65,7 @@ if(!cart.user) return <h1>Loading...</h1>
     <div className='m-20 flex'>
       <div className='w-7/12 '>
         <div className=' flex  justify-between border border-gray-200  p-1 py-4 mb-6'>
-          <h1>Deliver to: ,{cart.user.username},{cart.user.address[0].pin}</h1>
+          <h1>Deliver to: ,{cart?.user?.username},{cart?.user?.address[0]?.pin}</h1>
           <button className='p-1 mr-6 border border-black text-blue-400'>Change</button>
         </div>
 

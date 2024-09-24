@@ -1,6 +1,6 @@
 const { Cloudinary } = require("../utils/cloudinary-config")
 const Product = require("../Models/productSchema")
-
+const Review= require("../Models/reviewSchema")
 const createProduct = async (req, res) => {
 
     const { title, desc, price,stock,category,subcategory,seller } = req.body
@@ -100,8 +100,47 @@ const editProduct = async (req, res) => {
     }
 }
 
+const addReview= async(req,res)=>{
+
+const user=req.user
+const {id}=req.params
+const {product,comment,title,rating}=req.body
+if(!rating){
+    return res.json({success:false,message:"rating is required"})
+}
+const review=new Review({
+product,
+user:user.id,
+rating,
+comment,
+title,
+rating
+})
+   await review.save() 
+res.json({success:true,data:review})
 
 
+
+}
+const getReview = async (req, res) => {
+    const { id } = req.params;
+    try {
+        // Fetch reviews for the given product ID and populate user information
+        const reviews = await Review.find({ product: id }).populate("user", "username").lean();
+
+        // Check if there are no reviews
+        if (reviews.length === 0) {
+            return res.json({ success: false, message: 'No reviews found' });
+        }
+
+        // Send success response with reviews data
+        res.json({ success: true, data: reviews });
+    } catch (error) {
+        // Handle errors and send an error response
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+};
 
 const deleteProduct = async (req, res) => {
     try {
@@ -124,4 +163,4 @@ const deleteProduct = async (req, res) => {
 
 
 
-module.exports = { createProduct, deleteProduct, getProducts, editProduct,getProductById }
+module.exports = { createProduct, deleteProduct, getProducts, editProduct,getProductById ,addReview,getReview}

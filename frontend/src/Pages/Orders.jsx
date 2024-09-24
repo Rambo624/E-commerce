@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axiosInstance from '../utils/axiosInstance'
+import { Link } from 'react-router-dom'
 function Orders() {
 const [order,setOrder]=useState([])
 async function getOrders(){
@@ -15,7 +16,7 @@ getOrders()
 return (
     <div className="container min-h-screen text-center">
       {order.map((o) => (
-        <div key={order._id} className="border flex m-24 gap-48 py-5 shadow-md">
+        <div key={o._id} className="border flex m-24 gap-48 py-5 shadow-md">
          
           <div className='flex'>
            
@@ -26,10 +27,13 @@ return (
                   <p>{item.product.title}</p>
                   <p>{item.product.price} Rs</p>
                 </div>
+                <p className='text-orange-400'>{o.status}</p>
+                <Link to={`/addreview/${item.product._id}`}><p className=' text-blue-500'>Rate and Review</p></Link>
               </div>
+              
             ))}
           </div>
-          <p className='text-orange-400 mt-8'>{o.status}</p>
+         
         </div>
       ))}
     </div>
