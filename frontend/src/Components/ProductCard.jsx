@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import axiosInstance from '../utils/axiosInstance';
 
-function ProductCard({title,image,desc,price,id,sub_id}) {
+function ProductCard({title,image,desc,price,id,sub_id,isSeller}) {
 const navigate=useNavigate()
 
 function handleBuyButton(event){
@@ -9,9 +10,21 @@ function handleBuyButton(event){
   navigate(`/productdetails/${id}`)
 }
 
-function handlecard(){
 
+
+function handlecard(){
+if(!isSeller){
   navigate(`/product/${sub_id}`)
+}
+ 
+}
+
+async function handleDelete(){
+  axiosInstance({method:"DELETE",url:`/product/delete/${id}`})
+}
+
+async function handleEdit(){
+  navigate(`/seller/editproduct/${id}`)
 }
 
   return (
@@ -28,7 +41,9 @@ function handlecard(){
     <p>{desc}</p>
     <div className="card-actions justify-end">
         <p className='font-bold text-lg'>{price}</p>
-    <button onClick={handleBuyButton} className="btn btn-primary">Buy Now</button>
+        {isSeller && <button onClick={handleDelete}  className='p-2 bg-red-700 text-white rounded-lg'>Delete</button>}
+        {isSeller?<button onClick={handleEdit} className='p-2 bg-blue-500  text-white rounded-lg'>Edit</button>: <button onClick={handleBuyButton} className="btn btn-primary">Buy Now</button>}
+   
     </div>
   </div>
 </div>

@@ -12,7 +12,7 @@ function SellerProductPage() {
   return (
     <div className=' container'>
         <div className=''>
-        <ProductCategory Title={"All Products"} products={products}/>
+        <ProductCategory isSeller={true} Title={"All Products"} products={products}/>
         </div>
         
     </div>

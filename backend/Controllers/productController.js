@@ -80,7 +80,7 @@ const editProduct = async (req, res) => {
     try {
         let uploadUrl;
         const { id } = req.params
-        const {  price, title, desc } = req.body
+        const {  price, title, desc ,stock,subcategory,category} = req.body
         if (req.file) {
             const uploadResult = await Cloudinary.uploader.upload(req.file.path)
                 .catch((error) => {
@@ -91,7 +91,7 @@ const editProduct = async (req, res) => {
             console.log(uploadResult);
             uploadUrl = uploadResult.url
         }
-        const editproduct = await Product.findByIdAndUpdate( id , { thumbnail:uploadUrl, price, title, desc }, { new: true })
+        const editproduct = await Product.findByIdAndUpdate( id , { thumbnail:uploadUrl, price, title, desc,stock,subcategory,category }, { new: true })
         if (editproduct) {
             res.status(200).send(editproduct)
         }

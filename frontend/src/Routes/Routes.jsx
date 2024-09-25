@@ -24,6 +24,7 @@ import SellerProductPage from "../Pages/seller/sellerProductPage";
 import AddProduct from "../Pages/seller/AddProduct";
 import Orders from "../Pages/Orders";
 import Reviews from "../Pages/Reviews";
+import EditProducts from "../Pages/seller/EditProducts";
 
 
 export const router = createBrowserRouter([
@@ -120,6 +121,10 @@ export const router = createBrowserRouter([
         {
             path:"addproduct",
             element:<AddProduct/> 
+          },
+          {
+          path:"editproduct/:id",
+          element:<EditProducts/>
           },
       
     ]

@@ -13,7 +13,7 @@ import { sellerlogout } from '../utils/sellerSlice';
 import axios from 'axios';
 import axiosInstance from '../utils/axiosInstance';
 import useProducts from '../hooks/useProducts';
-
+import Darkmode from '../ui/Darkmode';
 
 
 function Header() {
@@ -23,6 +23,7 @@ function Header() {
   const {products,loading,error}=useProducts()
   const user = useSelector((store) => store.user)
   const seller= useSelector((store)=>store.seller)
+ 
   const [searchText,setSearchText]=useState(null)
   let size= user?.user?.cart?.products?.length || ""
 const [dropdown, setdropdown]=useState(false)
@@ -38,6 +39,9 @@ const [dropdown, setdropdown]=useState(false)
   }
 
   const [ishover, setIsHover] = useState(false)
+
+  
+
 
 function handleMouseEnter(){
   setIsHover(true)
@@ -62,6 +66,7 @@ dispatch(logout())
 
 async function handleSearchBar(e){
 setSearchText(e.target.value)
+console.log(isDarkmode)
 }
 
 async function handleSearch(){
@@ -81,7 +86,7 @@ console.log(results)
 
 
   return (
-    <div className=' py-4 flex justify-between bg-white sticky top-0 z-50 shadow-xl'>
+    <div className={`py-4 flex justify-between bg-white   sticky top-0 z-50 shadow-xl`}>
       <div className='w-3/12'>
         <Link to={"/"}><img src={import.meta.env.VITE_LOGO} alt="" /></Link>
       </div>
@@ -95,6 +100,9 @@ console.log(results)
       </div>
 
       <div className='w-4/12 px-3 flex gap-11 justify-end'>
+      <div   >
+        <Darkmode />
+      </div>
         <div className=''>
           {userLogin ?
             <button onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} className=' relative hover:bg-blue-500 hover:text-white rounded-lg p-3 flex items-center bg-gray-100'><FaRegUser className='mr-2' /> {username}{ishover ? <FaChevronDown className='ml-2' /> : <FaChevronUp className='ml-2' />} </button>
@@ -104,7 +112,7 @@ console.log(results)
          
            <ul className=' '>
             <li className=' hover:bg-gray-200 p-3 px-14 ' onClick={handleLogout} >Log Out</li>
-            <li className=' hover:bg-gray-200 p-3 px-14 '>Log Out</li>
+            <li className=' hover:bg-gray-200 p-3 px-14 ' >Log Out</li>
             <li className=' hover:bg-gray-200 p-3 px-14 '>Log Out</li>
             <li className=' hover:bg-gray-200 p-3 px-14 '>Log Out</li>
 <li>{searchText}</li>
