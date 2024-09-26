@@ -14,20 +14,23 @@ const sellerRoute=require("./Routes/sellerRoute")
 const cartRoute=require("./Routes/cartRoute")
 const subRoute=require("./Routes/subcategoryRoute")
 const orderRoute=require("./Routes/orderRoute")
-
-const allowedOrigins = [
-  'http://localhost:5173', // Local development
-  'https://e-commerce-puce-three-50.vercel.app' // Deployed frontend
-];
-
+// CORS options configuration
 const corsOptions = {
-  origin: allowedOrigins, // Replace with your frontend's URL
-  credentials: true,               // Allow credentials (cookies, etc.)
+  origin: (origin, callback) => {
+    // Allow requests with no origin (e.g., mobile apps or curl requests)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Allow credentials (cookies, etc.)
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
 };
 
-app.use("*",cors(corsOptions))
+// Apply CORS middleware globally
+app.use(cors(corsOptions));
 
 app.use(cookieParser())
 app.use(express.json())
