@@ -46,7 +46,7 @@ getCart()
 const session= await axiosInstance({method:"POST",url:"/cart/payment",data:{products:cart.products}})
 
 window.open(session.data.url, '_blank');
-console.log(session,"hello")
+
     } catch (error) {
       console.log(error)
     }finally {
@@ -74,7 +74,7 @@ if(!cart.user) return <h1>Loading...</h1>
         {cart.products.map((p)=>(
             
           <div key={p.product._id} className='py-4 border border-grey-200 px-2 flex '>
-            {console.log(p.product._id)}
+          
           <figure>
             <img className='w-36'src={p.product.thumbnail}/>
             <button className=' border border-grey-200 px-3'>-</button>
