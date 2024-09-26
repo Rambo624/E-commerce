@@ -1,13 +1,27 @@
 import React from 'react'
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
+import axiosInstance from '../utils/axiosInstance'
+import { useNavigate } from 'react-router-dom'
 function SellerSignup() {
  const name=useRef()
  const email=useRef()
  const password=useRef()
+const navigate=useNavigate()
+async function handleSignup(e){
+  e.preventDefault()
+console.log("helo")
+const sellerData={
+  username:name.current.value,
+  email:email.current.value,
+  password:password.current.value
+}
 
-async function handleSignup(){
-
+const response=await axiosInstance({url:"/seller/signup",method:"POST",data:sellerData})
+console.log(response)
+if(response.status===200){
+  navigate("/sellerlogin")
+}
 }
 
     return (
@@ -23,9 +37,9 @@ async function handleSignup(){
                 <label htmlFor="">Email</label><br />
                 <input ref={email} className='border w-80 rounded-lg  border-black mb-3 py-1' type="text" /><br />
                 <label htmlFor="">Password</label><br />
-                <input ref={password} className='border w-80 rounded-lg  border-black mb-3 py-1' type="text" /><br />
+                <input ref={password} className='border w-80 rounded-lg  border-black mb-3 py-1' type="password" /><br />
     
-                <button className='border border-black mt-4 w-80 p-1 rounded-lg bg-blue-500 text-white' >Submit</button>
+                <button onClick={handleSignup} className='border border-black mt-4 w-80 p-1 rounded-lg bg-blue-500 text-white' >Submit</button>
                 <p>Already a Seller?<Link className='text-blue-500' to={"/sellerlogin"}>Login</Link></p>
               </div>
               

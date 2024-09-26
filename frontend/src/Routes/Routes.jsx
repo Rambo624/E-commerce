@@ -30,6 +30,7 @@ import SellerList from "../Pages/Admin/SellerList";
 import UserList from "../Pages/Admin/UserList";
 import PendingOrders from "../Pages/Admin/PendingOrders";
 import CompletedOrders from "../Pages/Admin/CompletedOrders";
+import AddressPage from "../Pages/AddressPage";
 
 export const router = createBrowserRouter([
   {
@@ -106,6 +107,12 @@ export const router = createBrowserRouter([
             path:"addreview/:id",
             element:<Reviews/>
         },
+        {
+            path:"address/:id",
+            element:<AddressPage/>
+        },
+      
+        
       
     ]
 },

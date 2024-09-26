@@ -7,9 +7,9 @@ const generateToken=require("../utils/tokens")
 
 const sellerSignup= async(req,res)=>{
 
-    const {email,username,password,role,storeName}=req.body
+    const {email,username,password,role}=req.body
 
-if(!email || !username || !password||!storeName)
+if(!email || !username || !password)
 {
 return res.status(400).json("All fields are required")
 }
@@ -29,7 +29,7 @@ const hash = bcrypt.hashSync(password, saltRounds);
             username,
             password:hash,
             role,
-            storeName
+          
         })
 res.status(200).json("User created Successfully")
 

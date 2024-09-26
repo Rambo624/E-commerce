@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 import { useNavigate, Link } from 'react-router-dom';
-
+import { useRef } from 'react';
 function Profile() {
+
+  const name=useRef()
+  const mail=useRef()
+  const profile=useRef()
+
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState(null);
-
+const [successmsg,setSuccessmsg]=useState("")
   async function handleLogout() {
     await axiosInstance({ method: "POST", url: "/logout" });
     navigate("/");
@@ -23,9 +28,39 @@ function Profile() {
     fetchProfile();
   }, []);
 
+async function handleSubmit(e){
+e.preventDefault()
+console.log("hello")
+ const formData = new FormData();
+        formData.append('username', name.current.value);
+        formData.append('email', mail.current.value);
+    
+        
+        if (profile.current.files[0]) {
+            formData.append('profilepic', profile.current.files[0]);
+        }
+
+try {
+  
+const response=await axiosInstance({method:"PUT",url:"/edit",data:formData})
+console.log(response)
+setSuccessmsg("Saved Successfully")
+setInterval(() => {
+  setSuccessmsg("")
+}, 5000);
+
+
+} catch (error) {
+  console.log(error)
+}
+
+}
+
+
+
   if (!userDetails) return <h1>Loading....</h1>;
 
-  const { username, email, profilepic } = userDetails;
+  const { username, email, profilepic,_id } = userDetails;
 
   return (
     <div className='mx-20 min-h-screen mt-6 flex'>
@@ -55,7 +90,7 @@ function Profile() {
         <div>
           <Link to={"/orders"} className='block py-2 px-4 hover:bg-gray-200 rounded'>My Orders</Link>
           <Link to={"/account-settings"} className='block py-2 px-4 hover:bg-gray-200 rounded'>Account Settings</Link>
-          <Link to={"/profile-info"} className='block py-2 px-4 hover:bg-gray-200 rounded'>Manage addresses</Link>
+          <Link to={`/address/${_id}`} className='block py-2 px-4 hover:bg-gray-200 rounded'>Manage addresses</Link>
           <Link to={"/profile-info"} className='block py-2 px-4 hover:bg-gray-200 rounded'>Change Password</Link>
         </div>
       </div>
@@ -64,30 +99,30 @@ function Profile() {
       <div className='w-9/12 ml-6'>
         <div className='px-5'>
           <h1 className='text-2xl font-semibold mb-4'>Personal Info</h1>
-          <form className='space-y-4'>
-            <div>
-              <label className='font-bold' htmlFor="gender">Gender</label><br />
-              <label><input type="radio" name="gender" value="male" /> Male</label>
-              <label className='ml-5'><input type="radio" name="gender" value="female" /> Female</label>
-            </div>
+          <form  className='space-y-4'>
+       
 
             <div>
+              <label className='font-bold' htmlFor="">Name</label><br />
+              <input ref={name}  className='py-2 border border-gray-300 rounded w-full'  type="text" defaultValue={username} /><br />
               <label className='font-bold' htmlFor="email">Email Address</label><br />
               <input 
+              ref={mail}
                 className='py-2 border border-gray-300 rounded w-full' 
                 type="email" 
                 name="email" 
-                defaultValue={email} 
-                readOnly 
-              />
+                defaultValue={email}  /><br/>
+                <label className='font-bold' htmlFor="">Profile Picture</label><br />
+                <input ref={profile} type="file" />
             </div>
 
             <button 
-              type="button" 
+              onClick={handleSubmit}
               className='mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
             >
               Save Changes
             </button>
+            <h1 className='text-green-500'>{successmsg}</h1>
           </form>
         </div>
       </div>

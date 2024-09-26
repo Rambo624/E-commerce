@@ -20,7 +20,7 @@ const userData={
 
 try {
 
-    axios.post("https://e-commerce-1-r5xk.onrender.com/signup",userData)
+    axios.post("http://localhost:3000/signup",userData)
     navigate("/login")
     
 } catch (error) {
@@ -43,7 +43,7 @@ try {
             <label htmlFor="">Email</label><br />
             <input ref={email} className='border w-80 rounded-lg  border-black mb-3 py-1' type="text" /><br />
             <label htmlFor="">Password</label><br />
-            <input ref={password} className='border w-80 rounded-lg  border-black mb-3 py-1' type="text" /><br />
+            <input ref={password} className='border w-80 rounded-lg  border-black mb-3 py-1' type="password" /><br />
 
             <button className='border border-black mt-4 w-80 p-1 rounded-lg bg-blue-500 text-white' >Submit</button>
             <p>Already a User?<Link className='text-blue-500' to={"/login"}>Login</Link></p>

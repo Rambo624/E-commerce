@@ -27,7 +27,7 @@ async function handleLogin(e){
    
       if(response.data.role==="seller"){
        
-   navigate("/seller/home")
+   navigate("/seller/sellerProducts")
    dispatch(login(response.data))
       }
 
@@ -59,7 +59,7 @@ async function handleLogin(e){
       <label className='font-semibold ' htmlFor="">Email</label><br />
                 <input ref={email} className='border border-black rounded-lg w-72 p-1' type="text" /><br />
                 <label  className='font-semibold' htmlFor="">Password</label><br />
-                <input ref={password} className='border border-black rounded-lg w-72 p-1' type="text" /><br />
+                <input ref={password} className='border border-black rounded-lg w-72 p-1' type="password" /><br />
     
                 <button className='border border-black mt-5 p-1 text-white bg-blue-600 rounded-lg w-72' >Login</button>
              <p>New User?Create an <Link className='text-blue-400' to={"/sellersignup"}>account</Link></p>

@@ -56,9 +56,10 @@ function handleMouseLeave(){
   setdropdown(false)
 }
 
-function handleLogout(){
+async function handleLogout(){
   if(user){
-    axios.post("https://e-commerce-1-r5xk.onrender.com/logout",{},{ withCredentials: true })
+   await axiosInstance({method:"POST",url:"/logout"})
+  
 dispatch(logout())
   navigate("/login")
   }

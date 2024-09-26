@@ -31,7 +31,7 @@ const sellerSchema = new mongoose.Schema(
     },
     storeName: {
       type: String,
-      required: true,
+      
       trim: true,
     },
     storeDescription: {

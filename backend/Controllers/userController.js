@@ -104,7 +104,7 @@ const addAddress=async(req,res)=>{
 const user=req.user
 const {name,House,city,pin,state}=req.body
 
-if(!House||!city||!pin||!state||!name){
+if(!House||!city||!pin||!state){
     return res.status(400).json({message:"all fields are required"})
 }
 
@@ -128,8 +128,66 @@ const address={
 
 }
 
-
-    
+// Remove Address Controller
+const removeAddress = async (req, res) => {
+    const user=req.user
+    const {id} = req.params; 
+  
+    try {
+      // Find the user by ID
+      const userdetails = await User.findById(user.id);
+      if (!userdetails) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      // Filter out the address to be removed
+      userdetails.address = userdetails.address.filter((addr) => addr._id.toString() !== id);
+  
+      // Save the updated user document
+      await userdetails.save();
+  
+      res.status(200).json({ message: 'Address removed successfully', user });
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error });
+    }
+  };
+  
+    // Edit Address Controller
+const editAddress = async (req, res) => {
+    const user=req.user
+    const {id} = req.params; 
+    const { name, House, city, state, country, pin } = req.body; // Fields to update
+  
+    try {
+      // Find the user by ID
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      // Find the address to edit
+      const addressIndex = user.address.findIndex((addr) => addr._id.toString() === addressId);
+      if (addressIndex === -1) {
+        return res.status(404).json({ message: 'Address not found' });
+      }
+  
+      // Update the address fields if provided in the request body
+      if (name) user.address[addressIndex].name = name;
+      if (House) user.address[addressIndex].House = House;
+      if (city) user.address[addressIndex].city = city;
+      if (state) user.address[addressIndex].state = state;
+      if (country) user.address[addressIndex].country = country;
+      if (pin) user.address[addressIndex].pin = pin;
+  
+      // Save the updated user document
+      await user.save();
+  
+      res.status(200).json({ message: 'Address updated successfully', user });
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error });
+    }
+  };
+  
 
 
 const userEdit=async(req,res)=>{
@@ -196,4 +254,4 @@ const userLogout=async(req,res)=>{
 }
 
 
-module.exports={userSignup,userLogin,userLogout,userProfile,userDelete,userEdit,checkUser,addAddress,getUsers}
+module.exports={userSignup,userLogin,userLogout,userProfile,userDelete,userEdit,checkUser,addAddress,getUsers,removeAddress}

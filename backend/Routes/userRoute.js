@@ -13,5 +13,5 @@ router.put("/edit",upload.single("profilepic"),userAuth,userController.userEdit)
 router.get("/check-user", userAuth, userController.checkUser);
 router.delete("/delete",userAuth,userController.userDelete)
 router.post("/address",userAuth,userController.addAddress)
-
+router.delete("/deleteaddress/:id",userAuth,userController.removeAddress)
 module.exports=router
