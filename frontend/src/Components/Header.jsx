@@ -112,10 +112,8 @@ console.log(results)
          
            <ul className=' '>
             <li className=' hover:bg-gray-200 p-3 px-14 ' onClick={handleLogout} >Log Out</li>
-            <li className=' hover:bg-gray-200 p-3 px-14 ' >Log Out</li>
-            <li className=' hover:bg-gray-200 p-3 px-14 '>Log Out</li>
-            <li className=' hover:bg-gray-200 p-3 px-14 '>Log Out</li>
-<li>{searchText}</li>
+           
+
            </ul>
           </div>}  
 

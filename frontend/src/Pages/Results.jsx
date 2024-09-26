@@ -1,5 +1,6 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 function Results() {
 
     const location = useLocation();
@@ -18,6 +19,7 @@ function Results() {
            </div>
            <div className='w-4/12'>
             <h1 className='font-bold text-3xl'>{result.price}</h1>
+            <Link to={`/productdetails/${result._id}`}><button className='mt-24 p-2 bg-blue-600 text-white'>Buy Now</button></Link>
            </div>
         </div>))}
        

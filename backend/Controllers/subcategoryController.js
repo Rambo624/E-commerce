@@ -28,7 +28,7 @@ const createsubCategory=async(req,res)=>{
 
 const getSub= async (req,res)=>{
 
-const sub= await subCategory.find()
+const sub= await subCategory.find().populate("maincategory").lean()
 if(!sub){
     return res.status(400).json({success:false, message:"Internal server error"})
 }
