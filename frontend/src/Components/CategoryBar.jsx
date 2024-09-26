@@ -11,8 +11,7 @@ const [isHover,setIsHover]=useState(false)
 const [dropdown,setdropdown]=useState(false)
 
 
-  console.log(sub, "this is sub");
-  console.log(Category, "this is category");
+
 
   if (loading) return <h1>Loading...</h1>;
   if (error) return <h1>Error loading categories...</h1>;
