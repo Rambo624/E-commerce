@@ -66,7 +66,7 @@ dispatch(logout())
 
 async function handleSearchBar(e){
 setSearchText(e.target.value)
-console.log(isDarkmode)
+
 }
 
 async function handleSearch(){
