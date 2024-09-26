@@ -17,7 +17,7 @@ const orderRoute=require("./Routes/orderRoute")
 
 const allowedOrigins = [
   'http://localhost:5173', // Local development
-  'https://e-commerce-indol-theta.vercel.app' // Deployed frontend
+  'https://e-commerce-puce-three-50.vercel.app' // Deployed frontend
 ];
 
 const corsOptions = {
