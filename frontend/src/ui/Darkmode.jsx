@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 function Darkmode() {
-    const [isDarkmode,setIsDarkMode]=useState(true)
+    const [isDarkmode,setIsDarkMode]=useState(false)
 
 
     function handleDarkmode(){

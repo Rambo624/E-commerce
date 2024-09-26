@@ -84,6 +84,22 @@ res.send(userData)
 
 }
 
+
+const getUsers=async(req,res)=>{
+    const admin=req.seller
+  if(admin.role !="admin"){
+    return res.json({success:false,message:"Unauthorized"})
+  }
+
+    const userData= await User.find()
+    if(!userData){
+        return res.status(400).json("users not found")
+}
+
+res.send(userData)
+
+}
+
 const addAddress=async(req,res)=>{
 const user=req.user
 const {name,House,city,pin,state}=req.body
@@ -180,4 +196,4 @@ const userLogout=async(req,res)=>{
 }
 
 
-module.exports={userSignup,userLogin,userLogout,userProfile,userDelete,userEdit,checkUser,addAddress}
+module.exports={userSignup,userLogin,userLogout,userProfile,userDelete,userEdit,checkUser,addAddress,getUsers}

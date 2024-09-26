@@ -3,6 +3,7 @@ const router=express.Router()
 const userController= require("../Controllers/userController")
 const {userAuth}= require("../Middlewares/userauth")
 const {upload}=require("../Middlewares/multer")
+const {sellerAuth}= require("../Middlewares/sellerAuth")
 
 router.post("/signup", userController.userSignup)
 router.post("/login",userController.userLogin)

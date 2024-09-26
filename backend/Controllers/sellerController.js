@@ -85,9 +85,9 @@ const sellerLogin = async (req, res) => {
 
         res.cookie("token", token,); // Set secure flag in production
 const data= user?user:admin
-console.log(data,"data")
+
         delete data.password
-     console.log(data,"after delete");
+   
      
  
         res.status(200).json({ success: true, message: "Logged in successfully" ,role:user?user.role:"admin", data:data});

@@ -24,7 +24,7 @@ async function handleLogin(e){
    try {
    
      const response= await  axiosInstance({method:"POST", url:`/seller/login`,data:sellerData})
-     console.log(response)
+   
       if(response.data.role==="seller"){
        
    navigate("/seller/home")

@@ -1,5 +1,7 @@
 
 const admin=require("../Models/adminSchema")
+const User=require("../Models/userSchema")
+const Order=require("../Models/orderSchema")
 const bcrypt=require("bcrypt")
 const generateToken=require("../utils/tokens")
 
@@ -58,7 +60,7 @@ if(!userauth){
     return res.status(403).json("Invalid credentials")
 }
 
-const token = generateToken(user._id,)
+const token = generateToken(user._id,user.role)
 
 res.cookie("token",token)
 
@@ -87,6 +89,20 @@ res.send(userData)
 
 }
 
+const getUsers=async(req,res)=>{
+    const admin=req.seller
+  if(admin.role !="admin"){
+    return res.json({success:false,message:"Unauthorized"})
+  }
+
+    const userData= await User.find()
+    if(!userData){
+        return res.status(400).json("users not found")
+}
+
+res.json({success:true,data:userData})
+
+}
 
 const adminEdit=async(req,res)=>{
     const {id}=req.params
@@ -99,7 +115,35 @@ const {email,name,profilepic}=req.body
     res.send(userData)
 }
 
+const blockUser= async (req,res)=>{
 
+}
+
+
+const getOrders=async (req,res)=>{
+    try {
+        const orderDetails=await Order.find().populate("products.product").populate({path:"user", select:"username email"}).lean()
+        if(!orderDetails){
+            return res.json({success:false,message:"No orders Found"})
+        }
+        res.json({success:true,data:orderDetails})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const verifyOrder= async (req,res)=>{
+    try {
+        const {id}=req.params
+       const orderDetails= await Order.findByIdAndUpdate(id,{status:"order verified"},{new:true})
+       if(!orderDetails){
+        return res.json({success:false,message:"Order not found"})
+       }
+       res.status(200).json({ message: 'Order status updated', data: orderDetails });
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 const adminDelete=async(req,res)=>{
     const {id}=req.params
@@ -141,4 +185,4 @@ const adminLogout=async(req,res)=>{
 }
 
 
-module.exports={adminSignup,adminLogin,adminLogout,adminProfile,adminDelete,adminEdit,checkUser}
+module.exports={adminSignup,adminLogin,adminLogout,adminProfile,adminDelete,adminEdit,checkUser,getUsers,blockUser,getOrders,verifyOrder}

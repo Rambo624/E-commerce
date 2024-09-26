@@ -25,7 +25,11 @@ import AddProduct from "../Pages/seller/AddProduct";
 import Orders from "../Pages/Orders";
 import Reviews from "../Pages/Reviews";
 import EditProducts from "../Pages/seller/EditProducts";
-
+import AdminLayout from "../Layout/AdminLayout";
+import SellerList from "../Pages/Admin/SellerList";
+import UserList from "../Pages/Admin/UserList";
+import PendingOrders from "../Pages/Admin/PendingOrders";
+import CompletedOrders from "../Pages/Admin/CompletedOrders";
 
 export const router = createBrowserRouter([
   {
@@ -131,11 +135,27 @@ export const router = createBrowserRouter([
 },
 {
     path:"/admin",
-    element:(<AuthAdmin><RootLayout/></AuthAdmin>),
+    element:(<AuthAdmin><AdminLayout/></AuthAdmin>),
     children:[
         {
             path:"home",
             element:<AdminHome/>
+        },
+        {
+            path:"users",
+            element:<UserList/>
+        },
+        {
+            path:"sellers",
+            element:<SellerList/>
+        },
+        {
+            path:"pendingorders",
+            element:<PendingOrders/>
+        },
+        {
+            path:"completedorders",
+            element:<CompletedOrders/>
         },
         
     ]

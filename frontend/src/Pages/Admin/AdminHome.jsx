@@ -13,8 +13,10 @@ const navigate=useNavigate()
       }
 
   return (
-    <div>AdminHome
-        <button onClick={handlelogout} className='p-2 bg-blue-200'>Logout</button>
+    <div>
+      <div>
+        <h1>Welcome</h1>
+      </div>
     </div>
   )
 }

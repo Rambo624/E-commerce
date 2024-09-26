@@ -29,8 +29,8 @@ totalamount:{
 },
 status:{
     type:String,
-    enum: ['pending', 'shipped', 'delivered', 'cancelled'],
-    default:"pending"
+    enum: ['verification pending', 'shipped',"order verified", 'delivered', 'cancelled'],
+    default:"verification pending"
 },
 
 createdAt: { type: Date, default: Date.now },
