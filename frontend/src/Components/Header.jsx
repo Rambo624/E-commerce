@@ -13,6 +13,8 @@ import { sellerlogout } from '../utils/sellerSlice';
 import axios from 'axios';
 import axiosInstance from '../utils/axiosInstance';
 import useProducts from '../hooks/useProducts';
+import useSub from '../hooks/useSub';
+import useCategory from '../hooks/useCategory';
 import Darkmode from '../ui/Darkmode';
 
 
@@ -21,6 +23,8 @@ function Header() {
   const dispatch=useDispatch()
   const navigate=useNavigate()
   const {products,loading,error}=useProducts()
+  const {sub}=useSub()
+  const {Category}=useCategory
   const user = useSelector((store) => store.user)
   const seller= useSelector((store)=>store.seller)
  
@@ -73,7 +77,22 @@ async function handleSearch(){
   try {
     if(!searchText.trim()) return null
   console.log(products)
-  const results = products.filter((product) => product.title.toLowerCase().includes(searchText.toLowerCase()));
+  const results = products.filter((product) => {
+    const productTitle = product.title.toLowerCase();
+    const categoryName = product.category.name.toLowerCase(); 
+    const subcategoryName = product.subcategory.name.toLowerCase(); 
+
+  
+    return (
+      productTitle.includes(searchText.toLowerCase()) ||
+      categoryName.includes(searchText.toLowerCase()) ||
+      subcategoryName.includes(searchText.toLowerCase())
+    );
+  });
+
+
+
+  
   navigate("/results",{state:{results}})
 console.log(results)
   } catch (error) {
