@@ -15,10 +15,13 @@ const cartRoute=require("./Routes/cartRoute")
 const subRoute=require("./Routes/subcategoryRoute")
 const orderRoute=require("./Routes/orderRoute")
 
-
+const allowedOrigins = [
+  'http://localhost:5173', // Local development
+  'https://e-commerce-indol-theta.vercel.app' // Deployed frontend
+];
 
 const corsOptions = {
-  origin: 'http://localhost:5173', // Replace with your frontend's URL
+  origin: allowedOrigins, // Replace with your frontend's URL
   credentials: true,               // Allow credentials (cookies, etc.)
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers

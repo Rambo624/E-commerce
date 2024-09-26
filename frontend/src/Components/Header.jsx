@@ -58,7 +58,7 @@ function handleMouseLeave(){
 
 function handleLogout(){
   if(user){
-    axios.post("http://localhost:3000/logout",{},{ withCredentials: true })
+    axios.post("https://e-commerce-1-r5xk.onrender.com/logout",{},{ withCredentials: true })
 dispatch(logout())
   navigate("/login")
   }
