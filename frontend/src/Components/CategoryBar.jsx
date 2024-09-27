@@ -47,17 +47,17 @@ const [dropdown,setdropdown]=useState(false)
           <CategoryCard image={cat.image} name={cat.name} />
 
           {/* Subcategories: Hidden initially, visible on hover */}
-          {isHover && dropdown && <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="hidden z-10 group-hover:block absolute top-full left-0 mt-1 bg-white shadow-lg border p-4">
+          {isHover && dropdown && <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="hidden z-10 group-hover:block absolute top-full left-0 md:mt-1 bg-white shadow-lg border p-4">
             {getSubcategories(cat.name).length > 0 ? (
               getSubcategories(cat.name).map((subcategory) => (
                 
-                <div key={subcategory._id} className="m-2 p-2 border-b shadow-sm">
+                <div key={subcategory._id} className="md:m-2 md:p-2 p-1 border-b shadow-sm">
                 
-                  <p className=' cursor-pointer' onClick={()=>handleSub(subcategory._id)}>{subcategory.name}</p>
+                  <p className=' text-xs md:text-base cursor-pointer' onClick={()=>handleSub(subcategory._id)}>{subcategory.name}</p>
                 </div>
               ))
             ) : (
-              <p className=" text-gray-500">No subcategories available</p>
+              <p className="text-xs md:text-base text-gray-500">No subcategories available</p>
             )}
           </div>}
           

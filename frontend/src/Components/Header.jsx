@@ -107,31 +107,31 @@ console.log(results)
 
   return (
     <div className={`py-4 flex justify-between bg-white   sticky top-0 z-50 shadow-xl`}>
-      <div className='w-3/12'>
-        <Link to={"/"}><img src={import.meta.env.VITE_LOGO} alt="" /></Link>
+      <div className='md:w-3/12 w-2/12'>
+        <Link to={"/"}><img className='md:w-auto w-20' src={import.meta.env.VITE_LOGO} alt="" /></Link>
       </div>
 
-      <div className='w-5/12 flex'>
+      <div className='md:w-5/12 w-5/12 flex md:bg-white '>
       {userLogin && ( 
         <>
-        <input onChange={(e)=>handleSearchBar(e)} className='p-3 w-full rounded-bl-xl rounded-tl-xl bg-gray-200' type="text" placeholder='Search for Products,Brands etc...' />
-        <button onClick={handleSearch} className=' p-3  bg-gray-200 border border-black rounded-tr-xl rounded-br-xl'><FaSearch/></button> </>)}
+        <input onChange={(e)=>handleSearchBar(e)} className='md:p-3 ml-2 h-6 md:h-auto w-full text-xs md:text-base rounded-bl-xl rounded-tl-xl bg-gray-200' type="text" placeholder='Search for Products,Brands etc...' />
+        <button onClick={handleSearch} className=' md:p-3 p-1 h-6 md:h-auto bg-gray-200 border md:border-black  rounded-tr-xl rounded-br-xl'><FaSearch/></button> </>)}
        
       </div>
 
-      <div className='w-4/12 px-3 flex gap-11 justify-end'>
+      <div className='md:w-4/12 w-5/12 md:px-3 flex md:gap-11 justify-end md:bg-white '>
       <div   >
         <Darkmode />
       </div>
-        <div className=''>
+        <div className=' w-6/12'>
           {userLogin ?
-            <button onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} className=' relative hover:bg-blue-500 hover:text-white rounded-lg p-3 flex items-center bg-gray-100'><FaRegUser className='mr-2' /> {username}{ishover ? <FaChevronDown className='ml-2' /> : <FaChevronUp className='ml-2' />} </button>
-            : <Link to={"/login"}><button onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} className=' hover:bg-blue-500 hover:text-white rounded-lg p-3 flex items-center bg-gray-100'><FaRegUser className='mr-2' /> Login{ishover ? <FaChevronDown className='ml-2' /> : <FaChevronUp className='ml-2' />} </button></Link>}
+            <button onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} className=' relative  w-[100%] md:w-auto md:p-3 h-6 md:h-auto md:text-base text-xs py-2  md:hover:bg-blue-500 hover:text-white rounded-lg p-3 flex items-center bg-gray-100'><FaRegUser className='mr-2' /> {username}{ishover ? <FaChevronDown className='ml-2' /> : <FaChevronUp className='ml-2' />} </button>
+            : <Link to={"/login"}><button onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} className=' hover:bg-blue-500 hover:text-white rounded-lg p-3 flex items-center bg-gray-100'><FaRegUser className='mr-2' /> Login{ishover ? <FaChevronDown className='ml-2 '  /> : <FaChevronUp className='ml-2 ' />} </button></Link>}
         
         {userLogin && dropdown && <div onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} className=' absolute shadow-xl rounded-lg bg-white '>
          
            <ul className=' '>
-            <li className=' hover:bg-gray-200 p-3 px-14 ' onClick={handleLogout} >Log Out</li>
+            <li className=' hover:bg-gray-200 md:p-3  md:px-14 ' onClick={handleLogout} >Log Out</li>
            
 
            </ul>
@@ -139,8 +139,8 @@ console.log(results)
 
         </div>
 
-        {userLogin ? <Link to={`/cart/${id}`}><button className='flex items-center gap-3 mt-3'><FaShoppingCart  />Cart {size}</button></Link> :<Link to={"/sellersignup"}><button className='flex items-center gap-3 mt-3'><FaShop />Become a Seller</button></Link> }
-  <Link to={"/profile"}>{userLogin && <img className='w-8 h-7 mt-3' src={profilepic} alt="" />}</Link>
+        {userLogin ? <Link to={`/cart/${id}`}><button className='flex text-sm md:text-base items-center md:gap-3 mt-3'><FaShoppingCart className=''  /><p className='hidden md:block'>Cart</p><p>{size}</p> </button></Link> :<Link to={"/sellersignup"}><button className='flex items-center gap-3 mt-3'><FaShop />Become a Seller</button></Link> }
+  <Link to={"/profile"}>{userLogin && <img className='md:w-8 md:h-7 w-4 h-4 mt-3' src={profilepic} alt="" />}</Link>
       </div>
     </div>
   )

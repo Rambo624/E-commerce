@@ -5,9 +5,9 @@ function CategoryCard({image,name}) {
     <div>
        <div  className='shadow-lg inline-block p-2 relative '>
         <figure>
-<img className='w-32 h-28' src={image} alt="" />
+<img className='md:w-32 md:h-28 w-10 h-10' src={image} alt="" />
         </figure>
-        <p className='text-center '>{name}</p>
+        <p className='text-center text-xs '>{name}</p>
     </div>
   
     </div>
