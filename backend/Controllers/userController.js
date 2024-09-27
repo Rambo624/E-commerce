@@ -61,7 +61,12 @@ const userwithoutPassword={...user}
 delete userwithoutPassword.password
 const token = generateToken(user._id)
 
-res.cookie("token",token)
+res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,  // Cookie is sent over HTTPS only
+    sameSite: 'None',  // Allows cross-site cookie usage
+    maxAge: 24 * 60 * 60 * 1000 // 1 day expiration time
+});
 
 res.status(200).send(userwithoutPassword)
 

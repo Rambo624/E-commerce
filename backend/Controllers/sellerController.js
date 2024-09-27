@@ -83,7 +83,12 @@ const sellerLogin = async (req, res) => {
         // Generate token and set cookie
         const token = generateToken(user ? user._id : admin._id, user ? user.role : 'admin');
 
-        res.cookie("token", token,); // Set secure flag in production
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,  // Cookie is sent over HTTPS only
+            sameSite: 'None',  // Allows cross-site cookie usage
+            maxAge: 24 * 60 * 60 * 1000 // 1 day expiration time
+        });
 const data= user?user:admin
 
         delete data.password
