@@ -17,7 +17,8 @@ const orderRoute=require("./Routes/orderRoute")
 // CORS options configuration
 const allowedOrigins = [
   'http://localhost:5173', // Local development
-"https://e-commerce-frontend-ten-neon.vercel.app"
+"https://e-commerce-frontend-ten-neon.vercel.app",
+"https://e-commerce-server-ten.vercel.app"
 ];
 
 // CORS options configuration
