@@ -20,7 +20,7 @@ const userData={
 
 try {
 
-    axios.post("https://e-commerce-server-ecru.vercel.app//signup",userData)
+    axios.post("https://e-commerce-server-ecru.vercel.app/signup",userData)
     navigate("/login")
     
 } catch (error) {
