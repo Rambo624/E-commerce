@@ -19,7 +19,7 @@ const allowedOrigins = [
   'http://localhost:5173', // Local development
 
    "https://e-commerce-frontend-blush.vercel.app",
-   "https://e-commerce-server-ecru.vercel.app/"
+   "https://e-commerce-server-ecru.vercel.app"
 ];
 
 // CORS options configuration
