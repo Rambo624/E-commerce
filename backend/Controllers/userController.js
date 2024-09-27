@@ -61,7 +61,11 @@ const userwithoutPassword={...user}
 delete userwithoutPassword.password
 const token = generateToken(user._id)
 
-res.cookie("token",token)
+res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // true in production
+    sameSite: "None", // Allow cross-origin requests
+});
 
 res.status(200).send(userwithoutPassword)
 
