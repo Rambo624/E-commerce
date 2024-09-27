@@ -17,7 +17,8 @@ const orderRoute=require("./Routes/orderRoute")
 // CORS options configuration
 const allowedOrigins = [
   'http://localhost:5173', // Local development
-  'https://e-commerce-puce-three-50.vercel.app', // Deployed frontend
+  'https://e-commerce-puce-three-50.vercel.app',
+  "https://e-commerce-gwel.vercel.app" // Deployed frontend
  
 ];
 
