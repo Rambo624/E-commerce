@@ -3,13 +3,20 @@ import { useRef } from 'react'
 import axios from "axios"
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-function Signup() {
+import axiosInstance from '../utils/axiosInstance'
 
+
+function Signup() {
 const name=useRef()
 const password=useRef()
 const email=useRef()
 const navigate=useNavigate()
-function handleSignup(e){
+
+
+
+
+
+async function handleSignup(e){
 e.preventDefault()
 
 const userData={
@@ -19,8 +26,8 @@ const userData={
 }
 
 try {
-
-    axios.post("https://e-commerce-1-r5xk.onrender.com/signup",userData)
+  
+await axiosInstance({method:"POST",url:"/signup",data:userData})
     navigate("/login")
     
 } catch (error) {
