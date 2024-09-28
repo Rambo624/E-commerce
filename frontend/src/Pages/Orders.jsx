@@ -19,6 +19,10 @@ function Orders() {
     getOrders();
   }, []);
 
+if(order.length==0) return (<div className='m-52 ml-[30%]'><h1 className='min-h-screen text-5xl font-bold'>You have no Orders<Link to={"/"}><p className='text-lg ml-36 mt-7 text-blue-400'>Go to Home</p></Link></h1>
+
+</div>)
+
   return (
     <div className="container min-h-screen text-center">
       {order.map((o) => (

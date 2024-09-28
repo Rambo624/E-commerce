@@ -2,7 +2,7 @@ import React from 'react'
 
 function PaymentFail() {
   return (
-    <div>PaymentFail</div>
+    <div className='min-h-screen'>PaymentFail</div>
   )
 }
 

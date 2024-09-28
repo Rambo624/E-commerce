@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 import { useNavigate, Link } from 'react-router-dom';
 import { useRef } from 'react';
+import { logout } from '../utils/userSlice';
+import { useDispatch } from 'react-redux';
 function Profile() {
-
+const dispatch=useDispatch()
   const name=useRef()
   const mail=useRef()
   const profile=useRef()
@@ -11,9 +13,13 @@ function Profile() {
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState(null);
 const [successmsg,setSuccessmsg]=useState("")
+
+
+
   async function handleLogout() {
     await axiosInstance({ method: "POST", url: "/logout" });
-    navigate("/");
+    dispatch(logout())
+    navigate("/login");
   }
 
   useEffect(() => {
@@ -58,7 +64,7 @@ setInterval(() => {
 
 
 
-  if (!userDetails) return <h1>Loading....</h1>;
+  if (!userDetails) return <div className="skeleton h-32 w-32 min-h-screen"></div>
 
   const { username, email, profilepic,_id } = userDetails;
 

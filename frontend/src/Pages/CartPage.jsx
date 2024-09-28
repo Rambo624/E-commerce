@@ -14,7 +14,7 @@ const [isProcessing, setIsProcessing] = useState(false);
   const [cart,setCart]=useState([])
   async function getCart() {
     const response = await axiosInstance({ method: "GET", url: `/cart/getcart/${id}` })
-   
+   console.log(response.data)
     setCart(response.data)
   }
 
@@ -99,11 +99,26 @@ if(!cart.user) return <h1>Loading...</h1>
       </div>
       <div className='border border-grey-200 w-5/12 ml-5'>
         <div className=''>
+          
           <h1 className='border border-grey-200 font-bold p-2'>Price Details</h1>
-          <p className='ml-3'>Price</p>
-          <p  className='ml-3'>platform fee</p>
-          <p  className='ml-3'>Delivery charge</p>
-          <p  className='border border-grey-200 p-2 font-bold text-lg'>Total Amount</p>
+          <div className='flex justify-between'>
+          <p className='ml-3'>Price </p>
+          <p className='mr-8  text-red-500'>{cart.totalPrice} ₹</p>
+          </div>
+         <div className='flex justify-between'>
+         <p  className='ml-3'>platform fee</p>
+         <p className='mr-8 text-red-500'>50 ₹</p>
+         </div>
+      <div className='flex justify-between'>
+      <p  className='ml-3'>Delivery charge</p>
+      <p className='mr-8  text-red-500'>50 ₹</p>
+      </div>
+         <div className='flex justify-between border'>
+         <p  className='  p-2 font-bold text-lg'>Total Amount</p>
+         <p className='mr-8 mt-2 font-bold  text-red-700'>{(cart.totalPrice+100)} ₹</p>
+         </div>
+        
+          
           <div className='flex justify-center mt-11'>
           <button onClick={makePayment} className='p-2 bg-green-400 text-white'>Checkout</button>
           </div>

@@ -87,7 +87,7 @@ setReview(response.data.data)
         </div>
       </div>
       <div className='w-8/12  m-10'>
-      <div className='bg-red-200'>
+      <div className=''>
       <h1>{title}</h1>
         <p>{desc}</p>
         <p className='font-bold text-xl'>{price}</p>

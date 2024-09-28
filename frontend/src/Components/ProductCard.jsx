@@ -37,7 +37,7 @@ async function handleEdit(){
       alt="Shoes" />
   </figure>
   <div className="card-body bg-gray-300 ">
-    <h2 className="card-title text-xs">{title}</h2>
+    <h2 className="card-title text-xs md:text-lg">{title}</h2>
     <p className='text-xs'>{desc}</p>
     <div className="card-actions justify-end">
         <p className='font-bold text-xs md:text-lg'>{price}</p>
