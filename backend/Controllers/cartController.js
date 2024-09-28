@@ -98,6 +98,55 @@ const addToCart = async (req, res) => {
   };
   
  // Controllers/cartUpdateController.js
+ const productQuantity = async (req, res) => {
+  try {
+    const user = req.user;
+    const { cartId, productId, quantity } = req.body;
+    console.log(quantity);
+    console.log(cartId);
+    console.log(productId);
+
+    // Update the quantity of the product in the cart
+    const productDetails = await Cart.findOneAndUpdate(
+      { _id: cartId, "products._id": productId },
+      { $set: { "products.$.quantity": quantity } },
+      { new: true } // To return the updated document
+    );
+
+    // If productDetails is null, it means no cart was found
+    if (!productDetails) {
+      return res.status(404).json("Cart not found or product does not exist in the cart.");
+    }
+
+    // Retrieve the latest product prices from the database
+    const productPrices = await Product.find({
+      _id: { $in: productDetails.products.map(p => p.product) },
+    }).select('price');
+
+    // Calculate the new total price based on updated cart
+    let totalPrice = 0;
+    for (let item of productDetails.products) {
+      const productData = productPrices.find(p => p._id.toString() === item.product.toString());
+      if (productData) {
+        totalPrice += productData.price * item.quantity;
+      }
+    }
+
+    // Update the total price in the cart
+    productDetails.totalPrice = totalPrice;
+    await productDetails.save(); // Save the updated cart
+
+    // Return the updated cart details
+    res.status(200).json({
+      status: true,
+      message: "Product quantity updated successfully.",
+      data: productDetails,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json("Server error");
+  }
+};
 
 
 
@@ -308,4 +357,4 @@ try {
 
 
 
-module.exports={addToCart,getCartDetails,updateCart,removeCart,payment,getSession}
+module.exports={addToCart,getCartDetails,updateCart,removeCart,payment,getSession,productQuantity}

@@ -3,6 +3,7 @@ const admin=require("../Models/adminSchema")
 const User=require("../Models/userSchema")
 const Order=require("../Models/orderSchema")
 const bcrypt=require("bcrypt")
+const Seller=require("../Models/sellerSchema")
 const generateToken=require("../utils/tokens")
 
 
@@ -104,6 +105,21 @@ res.json({success:true,data:userData})
 
 }
 
+const getSellers=async(req,res)=>{
+    const admin=req.seller
+  if(admin.role !="admin"){
+    return res.json({success:false,message:"Unauthorized"})
+  }
+
+    const userData= await Seller.find()
+    if(!userData){
+        return res.status(400).json("users not found")
+}
+
+res.json({success:true,data:userData})
+
+}
+
 const adminEdit=async(req,res)=>{
     const {id}=req.params
 const {email,name,profilepic}=req.body
@@ -185,4 +201,4 @@ const adminLogout=async(req,res)=>{
 }
 
 
-module.exports={adminSignup,adminLogin,adminLogout,adminProfile,adminDelete,adminEdit,checkUser,getUsers,blockUser,getOrders,verifyOrder}
+module.exports={adminSignup,adminLogin,adminLogout,adminProfile,adminDelete,adminEdit,checkUser,getUsers,blockUser,getOrders,verifyOrder,getSellers}

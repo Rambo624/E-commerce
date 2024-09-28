@@ -13,7 +13,14 @@ export const AuthUser = ({ children }) => {
                 method: "GET",
                 url: "/check-user",
             });
-            setIsUser(true);
+           
+            if(response.data.data.role==="user"){
+                setIsUser(true);
+            }
+            else{
+                navigate("/")
+            }
+       
           
         } catch (error) {
             setIsUser(false);

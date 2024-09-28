@@ -238,7 +238,7 @@ const checkUser = async (req, res, next) => {
           return  res.status(401).json({ success: false, message: "user not autherized" });
         }
 
-        res.json({ success: true, message: "user autherized" });
+        res.json({ success: true, message: "user autherized",data:user });
     } catch (error) {
         console.log(error);
         res.status(error.statusCode || 500).json({ message: error.message || "Internal server error" });

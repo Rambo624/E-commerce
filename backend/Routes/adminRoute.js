@@ -16,6 +16,7 @@ router.get("/profile/:id",sellerAuth,adminController.adminProfile)
 router.put("/edit/:id",sellerAuth,adminController.adminEdit)
 router.get("/check-user", sellerAuth, adminController.checkUser);
 router.get("/getusers",sellerAuth,adminController.getUsers)
+router.get("/getsellers",sellerAuth,adminController.getSellers)
 router.put("/blockuser",sellerAuth,adminController.blockUser)
 router.get("/getorders",sellerAuth,adminController.getOrders)
 router.put("/verify/:id",sellerAuth,adminController.verifyOrder)

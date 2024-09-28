@@ -19,6 +19,7 @@ const cartSchema= new mongoose.Schema({
             type: Number,
             required: true,
             min: [1, 'Quantity must be at least 1'],
+            max:[10,"maximum 10 units in a single order"],
             default: 1,
           },
         },
