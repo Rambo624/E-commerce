@@ -12,6 +12,7 @@ const dispatch=useDispatch()
 const [isProcessing, setIsProcessing] = useState(false);
 
   const { id } = useParams()
+  const [message,setMessage]=useState()
   const [cart,setCart]=useState([])
   async function getCart() {
     const response = await axiosInstance({ method: "GET", url: `/cart/getcart/${id}` })
@@ -70,9 +71,19 @@ quantity--
 
   async function handleAddQuantity(cartId,productId,quantity){
     try {
+    
 quantity++
-      const response= await axiosInstance({method:"PUT",url:"/cart/addquantity",data:{cartId:cartId,productId:productId,quantity:quantity}})
-      getCart()
+if(quantity<=10){
+  const response= await axiosInstance({method:"PUT",url:"/cart/addquantity",data:{cartId:cartId,productId:productId,quantity:quantity}})
+  getCart()
+}
+     else{
+      setMessage("Max 10 units in a single order")
+      setInterval(() => {
+       setMessage("")
+      }, 5000);
+     
+     }
     } catch (error) {
       console.log(error)
     }
@@ -100,10 +111,10 @@ if(!cart.user) return <h1>Loading...</h1>
           
           <figure>
             <img className='w-36'src={p.product.thumbnail}/>
-            <button onClick={()=>handleSubtract(cart._id,p._id,p.quantity)} className=' border border-grey-200 px-3'>-</button>
-            <input  className=' border border-grey-200 w-10 mx-5' type="number"  value={p.quantity}  />
-            <button onClick={()=>handleAddQuantity(cart._id,p._id,p.quantity)}  className=' border border-grey-200 px-3'>+</button>
-
+            <button onClick={()=>handleSubtract(cart._id,p._id,p.quantity)} className=' border border-grey-200 px-3 mt-2'>-</button>
+            <input  className=' border border-grey-200 w-10 mx-5 mt-2' type="number"  value={p.quantity}  />
+            <button onClick={()=>handleAddQuantity(cart._id,p._id,p.quantity)}  className=' border border-grey-200 px-3 mt-2'>+</button>
+<p className='text-red-600 mt-2'>{message}</p>
           </figure>
 
 
