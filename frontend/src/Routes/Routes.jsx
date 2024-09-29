@@ -31,6 +31,9 @@ import UserList from "../Pages/Admin/UserList";
 import PendingOrders from "../Pages/Admin/PendingOrders";
 import CompletedOrders from "../Pages/Admin/CompletedOrders";
 import AddressPage from "../Pages/AddressPage";
+import AddCategory from "../Pages/seller/AddCategory";
+import AddSub from "../Pages/seller/AddSub";
+
 
 export const router = createBrowserRouter([
   {
@@ -132,6 +135,14 @@ export const router = createBrowserRouter([
         {
             path:"addproduct",
             element:<AddProduct/> 
+          },
+          {
+            path:"addcategory",
+            element:<AddCategory/> 
+          },
+          {
+            path:"addsub",
+            element:<AddSub/> 
           },
           {
           path:"editproduct/:id",

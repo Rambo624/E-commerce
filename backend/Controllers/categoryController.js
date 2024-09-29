@@ -23,7 +23,7 @@ const createCategory=async(req,res)=>{
     
         const categoryexist= await Category.findOne({name})
         if(categoryexist){
-            return res.status(400).json("Category already exist")
+            return res.json({message:"Category already exist"})
         }
     
     const newcategory= await Category.create({
