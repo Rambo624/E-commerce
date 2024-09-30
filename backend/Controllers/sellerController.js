@@ -165,7 +165,13 @@ const checkUser = async (req, res, next) => {
 const sellerLogout=async(req,res)=>{
 
     try {
-        res.clearCookie("token")
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: true,  // Matches the `secure` flag when the cookie was set
+            sameSite: 'None',  // Matches the `sameSite` attribute when the cookie was set
+            path: '/', // Make sure to include the path if it was set when creating the cookie
+          });
+          
         res.json("user logged out successfully")
     } catch (error) {
         console.log(error)
