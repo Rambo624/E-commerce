@@ -6,6 +6,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const addToCart = async (req, res) => {
   const user = req.user;
+  console.log(user)
   const { productId, quantity } = req.body;
 
   try {
