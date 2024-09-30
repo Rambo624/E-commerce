@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useRef } from 'react'
 import axiosInstance from '../utils/axiosInstance'
 import { Link } from 'react-router-dom'
@@ -13,7 +13,7 @@ const dispatch=useDispatch()
 const navigate=useNavigate()
 const password=useRef()
 const email=useRef()
-
+const [errorMsg,setErrorMsg]=useState("")
 async function handleLogin(e){
 e.preventDefault()
 
@@ -37,6 +37,10 @@ navigate("/")
 
 } catch (error) {
     console.log(error)
+    setErrorMsg("Invalid credentials")
+    setInterval(()=>{
+setErrorMsg("")
+    },5000)
 }finally{
  
 }
