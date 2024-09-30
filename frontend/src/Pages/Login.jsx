@@ -66,6 +66,7 @@ setErrorMsg("")
 
             <button className='border border-black mt-5 p-1 text-white bg-blue-600 rounded-lg w-72' >Login</button>
          <p>New User?Create an <Link className='text-blue-400' to={"/signup"}>account</Link></p>
+         <h1 className='text-red-500'>{errorMsg}</h1>
   </div>
            
         </form>
