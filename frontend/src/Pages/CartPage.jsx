@@ -132,7 +132,7 @@ function CartPage() {
   <div>
     <div className='ml-32'>
       <h1>{p.product.title}</h1>
-      <h1>{p.product.desc}</h1>
+     
       <h1>{p.product.price}</h1>
       <button onClick={() => handleRemoveButton(p.product._id)} className='p-2 border border-black'>Remove</button>
     </div>
