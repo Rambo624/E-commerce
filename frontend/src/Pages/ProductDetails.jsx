@@ -88,13 +88,14 @@ setReview(response.data.data)
       </div>
       <div className='w-8/12  m-10'>
       <div className=''>
-      <h1>{title}</h1>
-        <p>{desc}</p>
-        <p className='font-bold text-xl'>{price}</p>
+      <h1 className='font-bold text-xl'>{title}</h1>
+        <p className='font-medium'>{desc}</p>
+        <p className='font-bold text-xl mt-4'>{price} ₹</p>
       </div>
      <div className=''>
-      <h1 className='font-medium mb-5 border shadow-sm py-7 mt-5'>Ratings and Reviews</h1>
+     <h1 className='font-medium mb-5 text-2xl shadow-sm py-7 mt-5 '>Ratings and Reviews</h1>
       {review && review.map((r)=>(<div className='border shadow-sm mt-3'>
+     
         <h1><p className='font-bold'><p className='rounded-md text-sm text-white p-0.5 bg-green-500 inline-block'>{r.rating} ⭐</p> {r.title}</p></h1>
         <p>{r.comment}</p>
         <p className='text-sm text-gray-400'>{r.user.username}</p>

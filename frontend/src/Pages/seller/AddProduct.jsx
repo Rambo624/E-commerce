@@ -79,7 +79,7 @@ function AddProduct() {
     return (
         <div className="mx-auto max-w-2xl p-6 bg-white rounded-lg shadow-md">
             <h1 className="text-2xl font-semibold mb-6">Add New Product</h1>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 mb-10">
                 <div>
                     <label className='font-medium' htmlFor="">Title</label>
                     <input ref={title} className='border p-2 border-gray-300 w-full rounded-md' type="text" required />
@@ -118,8 +118,8 @@ function AddProduct() {
                     <label htmlFor="">Thumbnail</label>
                     <input ref={thumbnail} className='border p-2 border-gray-300 w-full rounded-md' type="file" accept="image/*" />
                 </div>
-                <button type='submit' className='p-2 mt-4 bg-blue-600 text-white rounded-md hover:bg-blue-700'>Submit</button>
-                {successMessage && <p className="mt-4 text-green-500">{successMessage}</p>}
+                <button type='submit' className='p-2 mt-4 mb-10 bg-blue-600 text-white rounded-md hover:bg-blue-700'>Submit</button>
+                {successMessage && <p className="mt-4 text-green-500 ">{successMessage}</p>}
             </form>
         </div>
     );
