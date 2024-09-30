@@ -35,6 +35,7 @@ const corsOptions = {
   credentials: true, // Allow credentials (cookies, etc.)
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed methods
   allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Credentials'], // Allowed headers
+  exposedHeaders: [ 'Set-Cookie']
 };
 
 // Apply CORS middleware globally
