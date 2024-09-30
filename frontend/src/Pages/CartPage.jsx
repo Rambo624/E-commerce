@@ -102,7 +102,7 @@ function CartPage() {
 
   //console.log(cart,"hello")
 
-  if (!cart.user) return <h1>Loading....</h1>
+  if (!cart.user) return <div className='min-h-screen'><h1 className='font-bold text-3xl'>Oops!!No Items in the cart</h1></div>
   return (
     <div className='m-20 flex min-h-screen'>
       <div className='w-7/12 '>
