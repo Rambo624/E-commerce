@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
 import { addcart } from '../utils/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { toast,Bounce } from 'react-toastify';
 function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -18,6 +18,7 @@ const [errorMessage,seterrorMessage]=useState("")
   async function getProduct() {
     try {
       const response = await axiosInstance({ method: "GET", url: `/product/getproduct/${id}` });
+      console.log(response.data)
       setProduct(response.data);
       
     } catch (error) {
@@ -28,7 +29,7 @@ const [errorMessage,seterrorMessage]=useState("")
 
   async function getReviews() {
 const response= await axiosInstance({method:"GET",url:`/product/getreview/${id}`})
-console.log(response.data.data)
+
 setReview(response.data.data)
   }
   // Check if product is in cart
@@ -47,19 +48,42 @@ setReview(response.data.data)
 
   // Handle adding product to cart
   async function handleAddCartbutton() {
- console.log(user)
+
     const productData = {
       productId: id,
       quantity: 1
     };
     try {
-      if(user.isUserLogged){
+      if(user.isUserLogged && product.stock>=productData.quantity){
         const response = await axiosInstance({ method: "POST", url: "/cart/addtocart", data: productData });
         console.log(response.data)
            dispatch(addcart(response.data.data)); // Assuming response.data contains the added product
            setIncart(true);
+           toast.success("Product added to Cart Successfully",{position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,})
+
+      }else if(!user.isUserLogged){
+        toast.error("Log in to add to cart",{position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,})
+       
       }else{
-        seterrorMessage("Log in to add to cart")
+        console.log(product.stock)
+        console.log(productData.quantity)
+        seterrorMessage("Product Out of Stock")
         setInterval(()=>{
 seterrorMessage("")
         },10000)

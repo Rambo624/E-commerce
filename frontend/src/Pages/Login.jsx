@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { login } from '../utils/userSlice'
-
+import {  toast ,Bounce} from 'react-toastify';
 
 
 function Login() {
@@ -30,6 +30,15 @@ try {
    if(response.status===200){
       dispatch(login(response.data))
       console.log(response.data)
+      toast.success("Login Successful",{position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,})
 navigate("/")
    }
 

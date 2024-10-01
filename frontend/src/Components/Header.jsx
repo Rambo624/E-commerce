@@ -10,7 +10,7 @@ import { logout } from '../utils/userSlice';
 import { useDispatch } from 'react-redux';
 import { FaSearch } from 'react-icons/fa';
 import { sellerlogout } from '../utils/sellerSlice';
-import axios from 'axios';
+import { toast,Bounce } from 'react-toastify';
 import axiosInstance from '../utils/axiosInstance';
 import useProducts from '../hooks/useProducts';
 import useSub from '../hooks/useSub';
@@ -61,6 +61,15 @@ async function handleLogout(){
    await axiosInstance({method:"POST",url:"/logout"})
   
 dispatch(logout())
+toast.success("Logged Out Successfully",{position: "top-center",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "dark",
+  transition: Bounce,})
   navigate("/login")
   }
  axiosInstance({method:"POST",url:"/seller/logout"})

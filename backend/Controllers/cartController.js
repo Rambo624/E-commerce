@@ -307,7 +307,7 @@ const payment = async (req, res, next) => {
           name: product.title,
           images: [product.thumbnail] // Use the thumbnail URL for images
         },
-        unit_amount: product.price * 100, // Stripe expects amount in cents
+        unit_amount: ((product.price+100) * 100), // Stripe expects amount in cents
       },
       quantity: quantity || 1 // Default to 1 if quantity is not specified
     }));
@@ -331,11 +331,25 @@ if(session){
     totalamount: products.reduce((total, { product, quantity }) => total + product.price * (quantity || 1), 0), // Calculate total amount
   })
 await order.save()
-res.json({ success: true, sessionId: session.id,url: session.url  });
+
+const stockUpdatePromises = products.map(async ({ product, quantity }) => {
+  // Assuming you have a Product model with a `stock` field
+  await Product.findByIdAndUpdate(
+    product._id,
+    { $inc: { stock: -(quantity || 1) } }, // Decrease stock by quantity
+    { new: true } // Return the updated document
+  );
+});
+
+// Execute all stock update promises
+await Promise.all(stockUpdatePromises);
+
+res.json({ success: true, sessionId: session.id, url: session.url });
 }
   
-   
-  } catch (error) {
+}
+
+   catch (error) {
     console.error('Error creating checkout session:', error);
     next(error);
   }

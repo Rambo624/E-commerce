@@ -1,15 +1,11 @@
 import React from 'react'
-import Login from "./Pages/Login"
 import { RouterProvider } from "react-router-dom"
-import Home from './Pages/Home'
-import Signup from './Pages/Signup'
-import Profile from './Pages/Profile'
-import Edituser from './Pages/Edituser'
 import { router } from './Routes/Routes'
 import { Provider } from "react-redux"
 import {appstore,persistor} from './utils/appstore.js'
 import { PersistGate } from 'redux-persist/integration/react';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -19,6 +15,7 @@ function App() {
           <RouterProvider router={router}></RouterProvider>
         </PersistGate>
       </Provider>
+      <ToastContainer/>
     </div>
   )
 }
