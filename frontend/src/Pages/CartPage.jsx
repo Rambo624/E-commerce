@@ -123,7 +123,7 @@ console.log(response)
 
         {/*cart Section*/}
 
-        {cart.products.length == 0 ? <div><h1 className='font-bold text-3xl'>Oops!!No Items in the cart</h1><Link to={"/"}><p className='text-blue-500'>Go to Home Page</p></Link></div> :cart.products.map((p) => (
+        {cart.products.length == 0 ? <div className=''><h1 className='font-bold  text-xl ml-5 mt-10 md:text-3xl'>Oops!!No Items in the cart</h1><Link to={"/"}><p className='text-blue-500 ml-5 '>Go to Home Page</p></Link></div> :cart.products.map((p) => (
 
 <div key={p.product._id} className='py-4 border border-grey-200 px-2 flex '>
 
