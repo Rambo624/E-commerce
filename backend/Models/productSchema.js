@@ -49,6 +49,12 @@ const productSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:"seller",
         required:true
+      },
+      AvgRating:{
+        type:Number,
+        min:1,
+        max:5,
+        default:1
       }
 
 
