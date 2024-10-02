@@ -52,7 +52,7 @@ if(loading ) return <div className="flex min-h-screen w-52 flex-col gap-4">
     
     <div className='m-4  shadow-grey-200 shadow-lg'>
     <h1 className='font-bold text-2xl mb-3'>{subname}</h1>
-    <div className='flex justify-around'>
+    <div className='flex gap-4 overflow-x-scroll justify-around'>
         {subProducts.map((product)=>(<ProductCard sub_id={product.subcategory._id} key={product._id} id={product._id} image={product.thumbnail} title={product.title} desc={product.desc} price={product.price}/>))}
     
    

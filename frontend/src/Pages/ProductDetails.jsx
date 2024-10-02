@@ -115,38 +115,38 @@ seterrorMessage("")
 
   return (
     <div className='flex'>
-      <div className='m-10 w-4/12'>
+      <div className='md:m-10 mt-10 ml-2 w-4/12'>
         <figure className='w-full'>
-          <img className='border w-full h-[500px] border-black p-2' src={thumbnail} alt={title} />
+          <img className='border md:w-full md:h-[500px] border-black p-2' src={thumbnail} alt={title} />
         </figure>
         <div className='flex justify-between mt-5'>
           {inCart  ? (
-            <button onClick={handleCartbutton} className='bg-[#ff9f00] text-white p-4 w-60'>GO TO CART</button>
+            <button onClick={handleCartbutton} className='bg-[#ff9f00] p-1 md:text-base text-xs text-white md:p-4 md:w-60'>GO TO CART</button>
           ) : (
-             <button onClick={handleAddCartbutton} className='bg-[#ff9f00] text-white p-4 w-60'>ADD TO CART</button>
+             <button onClick={handleAddCartbutton} className='bg-[#ff9f00] p-1 md:text-base text-xs text-white md:p-4 md:w-60'>ADD TO CART</button>
         
             
       
    
           )}
-          <button className='ml-5 bg-[#fb641b] text-white p-4 w-60'>BUY NOW</button>
+          <button className=' bg-[#fb641b] md:text-base ml-2 p-1 md:ml-5 text-white md:p-4 md:w-60 text-xs'>BUY NOW</button>
           
          
         </div>
         <div> <p className='text-red-600 text-lg'>{errorMessage}</p></div>
       </div>
-      <div className='w-8/12  m-10'>
+      <div className='w-8/12  mt-10 ml-4  md:m-10'>
       <div className=''>
-      <h1 className='font-bold text-xl'>{title}</h1>
-        <p className='font-medium'>{desc}</p>
-        <p className='font-bold text-xl mt-4'>{price} ₹</p>
+      <h1 className='font-bold md:text-xl text-sm'>{title}</h1>
+        <p className='font-medium text-xs md:text-base'>{desc}</p>
+        <p className='font-bold md:text-xl text-xs mt-4'>{price} ₹</p>
       </div>
      <div className=''>
-     <h1 className='font-medium mb-5 text-2xl shadow-sm py-7 mt-5 '>Ratings and Reviews</h1>
+     <h1 className='font-medium mb-5 md:text-2xl shadow-sm md:py-7 mt-5 text-sm'>Ratings and Reviews</h1>
       {review && review.map((r)=>(<div className='border shadow-sm mt-3'>
      
-        <h1><p className='font-bold'><p className='rounded-md text-sm text-white p-0.5 bg-green-500 inline-block'>{r?.rating} ⭐</p> {r?.title}</p></h1>
-        <p>{r?.comment}</p>
+        <h1><p className='font-bold md:text-base text-xs'><p className='rounded-md text-sm text-blue-400 md:text-white md:p-0.5 md:bg-green-500 inline-block'>{r?.rating} ⭐</p> {r?.title}</p></h1>
+        <p className='md:text-base text-xs'>{r?.comment}</p>
         <p className='text-sm text-gray-400'>{r?.user?.username}</p>
       </div>))}
       

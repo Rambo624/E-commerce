@@ -61,7 +61,7 @@ setErrorMsg("")
   
     <div className={`bg-cover h-screen w-screen bg-[url(${import.meta.env.VITE_BG_IMG})]`}>
    
-       <div className='mt-20 ml-10 md:m-[10%] md:ml-[40%] bg-white border border-black inline-block rounded-xl'>
+       <div className='mt-20 ml-5 md:m-[10%] md:ml-[40%] bg-white border border-black inline-block rounded-xl'>
      
         <form  onSubmit={handleLogin}>
           <div className='bg-blue-600  rounded-t-xl p-2'>
