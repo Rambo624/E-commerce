@@ -12,13 +12,14 @@ function ProductDetails() {
   
   const [product, setProduct] = useState(null);
   const [review,setReview]=useState([])
+  const [rating,setRating]=useState(0)
   const [inCart, setIncart] = useState(false);
 const [errorMessage,seterrorMessage]=useState("")
   // Function to fetch product details
   async function getProduct() {
     try {
       const response = await axiosInstance({ method: "GET", url: `/product/getproduct/${id}` });
-      console.log(response.data)
+     // console.log(response.data)
       setProduct(response.data);
       
     } catch (error) {
@@ -31,7 +32,21 @@ const [errorMessage,seterrorMessage]=useState("")
 const response= await axiosInstance({method:"GET",url:`/product/getreview/${id}`})
 
 setReview(response.data.data)
+
+setRating( response?.data?.data.length > 0  ? (response.data.data.reduce((acc, curr) => acc + curr.rating, 0) / response.data.data.length).toFixed(1)  : '1');
+
   }
+
+  
+   // const avgRating=review.length>0?(review.reduce((acc,curr)=>acc+curr.rating,0)/review.length).toFixed(1):1
+   //  console.log(avgRating,"avgRating")
+    
+ 
+ 
+  
+
+
+
   // Check if product is in cart
   useEffect(() => {
     if (user.user?.cart?.products) {
@@ -45,6 +60,8 @@ setReview(response.data.data)
     getProduct();
     getReviews()
   }, [id]);
+
+  
 
   // Handle adding product to cart
   async function handleAddCartbutton() {
@@ -142,7 +159,10 @@ seterrorMessage("")
         <p className='font-bold md:text-xl text-xs mt-4'>{price} ₹</p>
       </div>
      <div className=''>
-     <h1 className='font-medium mb-5 md:text-2xl shadow-sm md:py-7 mt-5 text-sm'>Ratings and Reviews</h1>
+     <h1 className='font-medium mb-3  md:text-2xl shadow-sm  mt-5 text-sm'>Ratings and Reviews</h1>
+    
+     <h1 className='pb-7 font-semibold text-sm md:text-lg'>Avg Rating- {rating}</h1>
+      
       {review && review.map((r)=>(<div className='border shadow-sm mt-3'>
      
         <h1><p className='font-bold md:text-base text-xs'><p className='rounded-md text-sm text-blue-400 md:text-white md:p-0.5 md:bg-green-500 inline-block'>{r?.rating} ⭐</p> {r?.title}</p></h1>
