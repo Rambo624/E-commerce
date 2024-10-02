@@ -40,24 +40,24 @@ const [dropdown,setdropdown]=useState(false)
   };
 
   return (
-    <div className="shadow-xl m-4 flex justify-around">
+    <div className="shadow-xl m-2 md:m-4 flex gap-4 justify-around md:overflow-visible overflow-scroll  ">
       {Category.map((cat) => (
         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} key={cat.name} className="group relative mb-6">
           {/* Category */}
           <CategoryCard image={cat.image} name={cat.name} />
 
           {/* Subcategories: Hidden initially, visible on hover */}
-          {isHover && dropdown && <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="hidden z-10 group-hover:block absolute top-full left-0 md:mt-1 bg-white shadow-lg border p-4">
+          {isHover && dropdown && <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="hidden md:hidden z-10  md:group-hover:block absolute top-full left-0 md:mt-1 bg-white shadow-lg border p-4">
             {getSubcategories(cat.name).length > 0 ? (
               getSubcategories(cat.name).map((subcategory) => (
                 
-                <div key={subcategory._id} className="md:m-2 md:p-2 p-1 border-b shadow-sm">
+                <div key={subcategory._id} className=" md:m-2 md:p-2 p-1 border-b shadow-sm">
                 
                   <p className=' text-xs md:text-base cursor-pointer' onClick={()=>handleSub(subcategory._id)}>{subcategory.name}</p>
                 </div>
               ))
             ) : (
-              <p className="text-xs md:text-base text-gray-500">No subcategories available</p>
+              <p className=" text-xs md:text-base text-gray-500">No subcategories available</p>
             )}
           </div>}
           

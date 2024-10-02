@@ -36,7 +36,7 @@ async function handleEdit(){
       src={image}
       alt="Shoes" />
   </figure>
-  <div className="card-body bg-gray-300 ">
+  <div className="card-body w-40 bg-gray-300 ">
     <h2 className="card-title text-xs md:text-lg ">{title}</h2>
    
     <div className="card-actions justify-end">

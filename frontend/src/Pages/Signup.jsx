@@ -39,7 +39,7 @@ await axiosInstance({method:"POST",url:"/signup",data:userData})
 
   return (
     <div className={`bg-cover h-screen w-screen bg-[url(${import.meta.env.VITE_BG_IMG})]`}>
-        <div className='m-[10%] ml-[40%] bg-white  border border-black inline-block rounded-xl '>
+        <div className='mt-10 ml-8 md:m-[10%] md:ml-[40%] bg-white  border border-black inline-block rounded-xl '>
         <form onSubmit={handleSignup}>
         <div className='bg-blue-600  rounded-t-xl p-2'>
        <h1 className='ml-[30%] font-semibold text-white'>User Signup</h1>
