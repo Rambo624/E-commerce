@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axiosInstance from '../utils/axiosInstance'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { removecart } from '../utils/userSlice'
+import { removecart,clearcart } from '../utils/userSlice'
 import { loadStripe } from '@stripe/stripe-js';
 import { Link } from 'react-router-dom'
 
@@ -16,7 +16,7 @@ function CartPage() {
   const [cart, setCart] = useState([])
   async function getCart() {
     const response = await axiosInstance({ method: "GET", url: `/cart/getcart/${id}` })
-    console.log(response.data)
+    console.log(response.data,"get cart")
     setCart(response.data)
   }
 
@@ -46,9 +46,17 @@ function CartPage() {
       // console.log(cart)
 
       const session = await axiosInstance({ method: "POST", url: "/cart/payment", data: { products: cart.products } })
+      const cartDetails= await axiosInstance({method:"DELETE",url:"/cart/clearcart"})
+      dispatch(clearcart())
+      setTimeout(()=>{
+        getCart()
+      },2000)
+     
 
       window.open(session.data.url, '_blank');
 
+     
+console.log(response)
     } catch (error) {
       console.log(error)
     } finally {

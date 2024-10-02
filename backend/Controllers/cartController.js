@@ -371,5 +371,19 @@ try {
 }
 
 
+const clearCart=async(req,res)=>{
+  try {
+const user=req.user
+console.log("this is clear cart")
+    const cart= await Cart.findOneAndUpdate({user:user.id},{$set:{products:[]}},{new:true})
+  
+    
+    res.json({success:true,message:"cart cleared",data:cart})
+  } catch (error) {
+    console.log(error)
+  }
+}
 
-module.exports={addToCart,getCartDetails,updateCart,removeCart,payment,getSession,productQuantity}
+
+
+module.exports={addToCart,getCartDetails,updateCart,removeCart,payment,getSession,productQuantity,clearCart}
