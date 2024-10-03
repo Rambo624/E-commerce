@@ -44,7 +44,7 @@ const [dropdown,setdropdown]=useState(false)
       {Category.map((cat) => (
         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} key={cat.name} className="group relative mb-6">
           {/* Category */}
-          <CategoryCard image={cat.image} name={cat.name} />
+          <CategoryCard id={cat._id} image={cat.image} name={cat.name} />
 
           {/* Subcategories: Hidden initially, visible on hover */}
           {isHover && dropdown && <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="hidden md:hidden z-10  md:group-hover:block absolute top-full left-0 md:mt-1 bg-white shadow-lg border p-4">
