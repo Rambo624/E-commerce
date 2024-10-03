@@ -131,9 +131,7 @@ const {email,name,profilepic}=req.body
     res.send(userData)
 }
 
-const blockUser= async (req,res)=>{
 
-}
 
 
 const getOrders=async (req,res)=>{
@@ -200,5 +198,46 @@ const adminLogout=async(req,res)=>{
 
 }
 
+const blockUser = async (req, res) => {
+    try {
+      const { id } = req.params;
+      console.log(id, "Hello");
+  
+      // Fetch the current state of isBlocked for both User and Seller
+      const [user, seller] = await Promise.all([
+        User.findById(id).lean(),
+        Seller.findById(id).lean(),
+      ]);
+  
+      // Check if neither user nor seller is found
+      if (!user && !seller) {
+        return res.status(404).json({ success: false, message: "User or Seller not found" });
+      }
+  
+      // Determine which object to update and toggle the isBlocked field
+      const target = user || seller; // Use user if found, otherwise use seller
+      const newIsBlocked = !target.isBlocked; // Toggle the current isBlocked value
+  
+      // Update the isBlocked field for the found user or seller
+     const userDetails= await (user
+        ? User.findByIdAndUpdate(id, { $set: { isBlocked: newIsBlocked } },{new:true})
+        : Seller.findByIdAndUpdate(id, { $set: { isBlocked: newIsBlocked }, },{new:true}));
+  
+      res.status(200).json({ success: true,data:newIsBlocked,user:userDetails, message: `User ${newIsBlocked ? 'Blocked' : 'Unblocked'} successfully` });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ success: false, message: "An error occurred" });
+    }
+  };
+  
 
-module.exports={adminSignup,adminLogin,adminLogout,adminProfile,adminDelete,adminEdit,checkUser,getUsers,blockUser,getOrders,verifyOrder,getSellers}
+ /* const blockUser=async (req,res)=>{
+    try {
+        const {id}=req.params
+        console.log(id,"Hello")
+    } catch (error) {
+       console.log(error) 
+    }
+  }*/
+
+module.exports={adminSignup,adminLogin,adminLogout,adminProfile,adminDelete,adminEdit,checkUser,getUsers,blockUser,getOrders,verifyOrder,getSellers,blockUser}

@@ -40,16 +40,29 @@ try {
         theme: "dark",
         transition: Bounce,})
 navigate("/")
-   }
+   } 
 
   
 
 } catch (error) {
     console.log(error)
-    setErrorMsg("Invalid credentials")
-    setInterval(()=>{
-setErrorMsg("")
-    },5000)
+    if(error.status===400){
+      toast.error("User is Blocked",{position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,})
+    }else{
+      setErrorMsg("Invalid credentials")
+      setTimeout(()=>{
+  setErrorMsg("")
+      },10000)
+    }
+  
 }finally{
  
 }

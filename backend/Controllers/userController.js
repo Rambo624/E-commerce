@@ -50,25 +50,28 @@ if(!user){
 
 }
 
-const hash=user.password
+if(!user.isBlocked){
+    const hash=user.password
 
-const userauth=bcrypt.compareSync(password, hash);
-
-if(!userauth){
-    return res.status(403).json("Invalid credentials")
+    const userauth=bcrypt.compareSync(password, hash);
+    
+    if(!userauth){
+        return res.status(403).json("Invalid credentials")
+    }
+    const userwithoutPassword={...user}
+    delete userwithoutPassword.password
+    const token = generateToken(user._id)
+    
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,  // Cookie is sent over HTTPS only
+        sameSite: 'None',  // Allows cross-site cookie usage
+        maxAge: 24 * 60 * 60 * 1000 // 1 day expiration time
+    });
+    
+    res.status(200).send(userwithoutPassword)
 }
-const userwithoutPassword={...user}
-delete userwithoutPassword.password
-const token = generateToken(user._id)
-
-res.cookie("token", token, {
-    httpOnly: true,
-    secure: true,  // Cookie is sent over HTTPS only
-    sameSite: 'None',  // Allows cross-site cookie usage
-    maxAge: 24 * 60 * 60 * 1000 // 1 day expiration time
-});
-
-res.status(200).send(userwithoutPassword)
+res.status(400).json({success:false,message:"user is blocked"})
 
     } catch (error) {
         console.log(error)

@@ -20,4 +20,5 @@ router.get("/getsellers",sellerAuth,adminController.getSellers)
 router.put("/blockuser",sellerAuth,adminController.blockUser)
 router.get("/getorders",sellerAuth,adminController.getOrders)
 router.put("/verify/:id",sellerAuth,adminController.verifyOrder)
+router.put("/block/:id",sellerAuth,adminController.blockUser)
 module.exports=router
