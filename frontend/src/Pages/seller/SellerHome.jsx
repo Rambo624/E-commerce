@@ -3,8 +3,8 @@ import React from 'react'
 function SellerHome() {
   return (
     <div>
-      <div className="overflow-x-auto">
-  <table className="table">
+      <div className="overflow-x-scroll">
+  <table className="table md:text-base text-xs">
     {/* head */}
     <thead>
       <tr>

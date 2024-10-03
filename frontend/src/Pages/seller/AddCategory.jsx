@@ -65,7 +65,7 @@ function AddCategory() {
 
     return (
         <div className="mx-auto max-w-2xl p-6 bg-white rounded-lg shadow-md">
-            <h1 className="text-2xl font-semibold mb-6">Add New Category</h1>
+            <h1 className="md:text-2xl text-lg font-semibold mb-6">Add New Category</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                     <label className='font-medium' htmlFor="">Title</label>

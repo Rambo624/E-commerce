@@ -77,20 +77,20 @@ function AddProduct() {
     if (loading) return <h1>Loading....</h1>;
 
     return (
-        <div className="mx-auto max-w-2xl p-6 bg-white rounded-lg shadow-md">
-            <h1 className="text-2xl font-semibold mb-6">Add New Product</h1>
+        <div className="mx-auto max-w-2xl md:p-6  bg-white rounded-lg shadow-md">
+            <h1 className="md:text-2xl text-lg  font-semibold mb-6">Add New Product</h1>
             <form onSubmit={handleSubmit} className="space-y-4 mb-10">
                 <div>
-                    <label className='font-medium' htmlFor="">Title</label>
-                    <input ref={title} className='border p-2 border-gray-300 w-full rounded-md' type="text" required />
+                    <label className='font-medium' htmlFor="">Title</label><br />
+                    <input ref={title} className='border p-2 border-gray-300 md:w-full rounded-md' type="text" required />
                 </div>
                 <div>
-                    <label className='font-medium' htmlFor="">Description</label>
-                    <textarea ref={desc} className='border p-2 border-gray-300 w-full rounded-md' rows="4" required></textarea>
+                    <label className='font-medium' htmlFor="">Description</label><br />
+                    <textarea ref={desc} className='border p-2 border-gray-300 md:w-full rounded-md' rows="4" required></textarea>
                 </div>
                 <div>
-                    <label className='font-medium' htmlFor="">Category</label>
-                    <select ref={categoryRef} className='border p-2 border-gray-300 w-full rounded-md' required>
+                    <label className='font-medium' htmlFor="">Category</label><br />
+                    <select ref={categoryRef} className='border p-2 border-gray-300 md:w-full rounded-md' required>
                         <option value="" disabled>Select a category</option>
                         {category.map((c) => (
                             <option key={c._id} value={c._id}>{c.name}</option>
@@ -98,8 +98,8 @@ function AddProduct() {
                     </select>
                 </div>
                 <div>
-                    <label className='font-medium' htmlFor="">Sub-Category</label>
-                    <select ref={subcategoryRef} className='border p-2 border-gray-300 w-full rounded-md' required>
+                    <label className='font-medium' htmlFor="">Sub-Category</label><br />
+                    <select ref={subcategoryRef} className='border p-2 border-gray-300 md:w-full rounded-md' required>
                         <option value="" disabled>Select a sub-category</option>
                         {subCategory.map((sub) => (
                             <option key={sub._id} value={sub._id}>{sub.name}</option>
@@ -107,16 +107,16 @@ function AddProduct() {
                     </select>
                 </div>
                 <div>
-                    <label htmlFor="">Stock</label>
-                    <input ref={stock} className='border p-2 border-gray-300 w-full rounded-md' type="number" required />
+                    <label htmlFor="">Stock</label><br />
+                    <input ref={stock} className='border p-2 border-gray-300 md:w-full rounded-md' type="number" required />
                 </div>
                 <div>
-                    <label htmlFor="">Price</label>
-                    <input ref={price} className='border p-2 border-gray-300 w-full rounded-md' type="number" required />
+                    <label htmlFor="">Price</label><br />
+                    <input ref={price} className='border p-2 border-gray-300 md:w-full rounded-md' type="number" required />
                 </div>
                 <div>
-                    <label htmlFor="">Thumbnail</label>
-                    <input ref={thumbnail} className='border p-2 border-gray-300 w-full rounded-md' type="file" accept="image/*" />
+                    <label htmlFor="">Thumbnail</label><br />
+                    <input ref={thumbnail} className='border p-2 border-gray-300 w-52 md:w-full rounded-md' type="file" accept="image/*" />
                 </div>
                 <button type='submit' className='p-2 mt-4 mb-10 bg-blue-600 text-white rounded-md hover:bg-blue-700'>Submit</button>
                 {successMessage && <p className="mt-4 text-green-500 ">{successMessage}</p>}

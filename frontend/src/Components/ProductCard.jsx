@@ -39,11 +39,14 @@ async function handleEdit(){
   <div className="card-body w-40 md:w-auto bg-gray-300 ">
     <h2 className="card-title text-xs md:text-lg ">{title}</h2>
    
-    <div className="card-actions justify-end">
+    <div className="card-actions items-center justify-end">
         <p className='font-bold text-xs md:text-lg'>{price} ₹</p>
-        {isSeller && <button onClick={handleDelete}  className='p-2 bg-red-700 text-white rounded-lg'>Delete</button>}
-        {isSeller?<button onClick={handleEdit} className='md:p-2 bg-blue-500  text-white rounded-lg'>Edit</button>: <button onClick={handleBuyButton} className="md:p-2 p-1  text-white rounded-lg text-xs bg-blue-600">Buy Now</button>}
+      
    
+    </div>
+    <div className='flex gap-5 items-center'>
+    {isSeller && <button onClick={handleDelete}  className='md:p-2 p-1 bg-red-700 text-white md:text-base text-xs rounded-lg'>Delete</button>}
+    {isSeller?<button onClick={handleEdit} className='md:p-2 p-1 bg-blue-500  text-white  rounded-lg'>Edit</button>: <button onClick={handleBuyButton} className="md:p-2 p-1  text-white rounded-lg text-xs bg-blue-600">Buy Now</button>}
     </div>
   </div>
 </div>
