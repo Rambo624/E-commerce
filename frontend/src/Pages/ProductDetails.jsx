@@ -33,7 +33,7 @@ const response= await axiosInstance({method:"GET",url:`/product/getreview/${id}`
 
 setReview(response.data.data)
 
-setRating( response?.data?.data.length > 0  ? (response.data.data.reduce((acc, curr) => acc + curr.rating, 0) / response.data.data.length).toFixed(1)  : '1');
+setRating( response?.data?.data.length > 0  ? (response.data.data.reduce((acc, curr) => acc + curr.rating, 0) / response.data.data.length).toFixed(1)  : 'No Rating');
 
   }
 
