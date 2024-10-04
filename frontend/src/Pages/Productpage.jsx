@@ -53,7 +53,7 @@ function Productpage() {
     </div>
   );
 
-  if(catProducts.length===0) return <div className='md:m-32'><h1 className='min-h-screen text-3xl font-bold'>No Products available</h1></div>
+  if(catProducts.length===0 && !subProducts.length ) return <div className='md:m-32'><h1 className='min-h-screen text-3xl font-bold'>No Products available</h1></div>
 
   return (
     <div className="m-4 shadow-grey-200 shadow-lg">
