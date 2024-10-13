@@ -37,7 +37,7 @@ function SellerLayout() {
 
             </div>
             <div className='md:w-10/12 w-8/12 ml-32 md:ml-64 overflow-x-hidden'>
-            <div className='  h-screen' >
+            <div  >
                 <Outlet/>
             </div>
             <div>
