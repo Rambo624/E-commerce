@@ -12,7 +12,7 @@ useEffect(() => {
   }
 }, [orders]);
 let serialNumber = 1;
-console.log(verifiedOrders)
+//console.log(verifiedOrders)
   return (
     <div>
       <div className="mx-10 mt-10">

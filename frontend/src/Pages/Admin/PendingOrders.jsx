@@ -11,7 +11,7 @@ function PendingOrders() {
       method: 'GET',
       url: '/admin/getorders',
     });
-    console.log(response.data.data)
+   // console.log(response.data.data)
     const pendingOrder= response.data.data.filter((order)=>order.status==="verification pending")
     setOrders(pendingOrder);
   }
@@ -22,7 +22,7 @@ function PendingOrders() {
 
   async function handleVerify(id){
     const response= await axiosInstance({method:"PUT",url:`/admin/verify/${id}`})
-console.log(response)
+//console.log(response)
 if(response.data)
 setOrders((prevOrder)=>orders.filter((order)=>(order._id!=id)))
   }
