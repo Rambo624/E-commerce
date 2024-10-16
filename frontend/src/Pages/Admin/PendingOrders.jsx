@@ -70,7 +70,7 @@ setOrders((prevOrder)=>orders.filter((order)=>(order._id!=id)))
                       {/* Product Price */}
                       <td>{product.product.price}</td>
                       {/* User Information */}
-                      <td>{order.user.username}</td>
+                      <td>{order?.user?.username}</td>
                       {/* Verify and Reject Buttons */}
                       <td>
                         <button onClick={()=>handleVerify(order._id)} className="p-2 bg-green-600 text-white rounded-md">Verify</button>
