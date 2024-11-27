@@ -32,7 +32,7 @@ async function handleLogin(e){
       }
 
       if(response.data.role==="admin"){
-         navigate("/admin/home")
+         navigate("/admin/users")
          dispatch(login(response.data))
       }
    
